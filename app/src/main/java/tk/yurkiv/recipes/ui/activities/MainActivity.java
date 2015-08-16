@@ -16,6 +16,10 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import tk.yurkiv.recipes.R;
+import tk.yurkiv.recipes.ui.fragments.CategoryFragment;
+import tk.yurkiv.recipes.ui.fragments.ExploreFragment;
+import tk.yurkiv.recipes.ui.fragments.FavouritesFragment;
+import tk.yurkiv.recipes.ui.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-
+        displayFragment(new HomeFragment());
     }
 
     @Override
@@ -63,22 +67,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menuItem.setChecked(true);
         switch (menuItem.getItemId()){
             case R.id.home:
-//                displayFragment();
+                displayFragment(new HomeFragment());
                 Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
                 return true;
             case R.id.category:
-//                displayFragment();
+                displayFragment(new CategoryFragment());
                 Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
                 return true;
             case R.id.explore:
-//                displayFragment();
+                displayFragment(new ExploreFragment());
                 Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
                 return true;
             case R.id.favourites:
-//                displayFragment();
+                displayFragment(new FavouritesFragment());
                 Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
                 return true;
