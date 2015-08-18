@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="tk.yurkiv.recipes.ui.fragments.ExploreFragment">
+    tools:context="tk.yurkiv.matches.ui.fragments.ExploreFragment">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"

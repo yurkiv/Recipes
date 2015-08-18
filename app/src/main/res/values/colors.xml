@@ -10,5 +10,6 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
     <color name="window_background">#FFF5F5F5</color>
+    <color name="tint">#66000000</color>
 
 </resources>
