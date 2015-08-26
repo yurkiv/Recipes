@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvFlavors">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tastes"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:id="@+id/textView"
+            android:layout_margin="16dp" />
+
+        <View
+            android:id="@+id/divider_description_child"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SALTY"/>
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/pbSalty"
+                    android:layout_height="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:rcBackgroundPadding="0dp"
+                    app:rcBackgroundRadius="4dp"
+                    app:rcBackgroundColor="@color/progress_background"
+                    app:rcProgressColor="@color/color_salty"
+                    app:rcMax="1"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SAVORY"/>
+
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/pbSavory"
+                    android:layout_height="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:rcBackgroundPadding="0dp"
+                    app:rcBackgroundRadius="4dp"
+                    app:rcBackgroundColor="@color/progress_background"
+                    app:rcProgressColor="@color/color_savory"
+                    app:rcMax="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SOUR"/>
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/pbSour"
+                    android:layout_height="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:rcBackgroundPadding="0dp"
+                    app:rcBackgroundRadius="4dp"
+                    app:rcBackgroundColor="@color/progress_background"
+                    app:rcProgressColor="@color/color_sour"
+                    app:rcMax="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BITTER"/>
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/pbBitter"
+                    android:layout_height="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:rcBackgroundPadding="0dp"
+                    app:rcBackgroundRadius="4dp"
+                    app:rcBackgroundColor="@color/progress_background"
+                    app:rcProgressColor="@color/color_bitter"
+                    app:rcMax="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SWEET"/>
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/pbSweet"
+                    android:layout_height="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:rcBackgroundPadding="0dp"
+                    app:rcBackgroundRadius="4dp"
+                    app:rcBackgroundColor="@color/progress_background"
+                    app:rcProgressColor="@color/color_sweet"
+                    app:rcMax="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SPICY"/>
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/pbSpicy"
+                    android:layout_height="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:rcBackgroundPadding="0dp"
+                    app:rcBackgroundRadius="4dp"
+                    app:rcBackgroundColor="@color/progress_background"
+                    app:rcProgressColor="@color/color_spicy"
+                    app:rcMax="1"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

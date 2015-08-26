@@ -2,7 +2,9 @@ package tk.yurkiv.recipes.api;
 
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
+import tk.yurkiv.recipes.model.YummlyRecipe;
 import tk.yurkiv.recipes.model.YummlyRecipesListResponse;
 
 /**
@@ -57,5 +59,8 @@ public interface YummlyService {
                                     @Query("start") int start,
                                     Callback<YummlyRecipesListResponse> cb);
 
+    @GET("/recipe/{id}")
+    public void getRecipe(@Path("id") String id,
+                          Callback<YummlyRecipe> cb);
 
 }

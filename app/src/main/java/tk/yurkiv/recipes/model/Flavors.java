@@ -6,124 +6,39 @@ import com.google.gson.annotations.Expose;
 public class Flavors {
 
     @Expose
-    private double Piquant;
+    private float Piquant;
     @Expose
-    private double Meaty;
+    private float Meaty;
     @Expose
-    private double Bitter;
+    private float Bitter;
     @Expose
-    private double Sweet;
+    private float Sweet;
     @Expose
-    private double Sour;
+    private float Sour;
     @Expose
-    private double Salty;
+    private float Salty;
 
-    /**
-     * 
-     * @return
-     *     The Piquant
-     */
-    public double getPiquant() {
+    public float getPiquant() {
         return Piquant;
     }
 
-    /**
-     * 
-     * @param Piquant
-     *     The Piquant
-     */
-    public void setPiquant(double Piquant) {
-        this.Piquant = Piquant;
-    }
-
-    /**
-     * 
-     * @return
-     *     The Meaty
-     */
-    public double getMeaty() {
+    public float getMeaty() {
         return Meaty;
     }
 
-    /**
-     * 
-     * @param Meaty
-     *     The Meaty
-     */
-    public void setMeaty(double Meaty) {
-        this.Meaty = Meaty;
-    }
-
-    /**
-     * 
-     * @return
-     *     The Bitter
-     */
-    public double getBitter() {
+    public float getBitter() {
         return Bitter;
     }
 
-    /**
-     * 
-     * @param Bitter
-     *     The Bitter
-     */
-    public void setBitter(double Bitter) {
-        this.Bitter = Bitter;
-    }
-
-    /**
-     * 
-     * @return
-     *     The Sweet
-     */
-    public double getSweet() {
+    public float getSweet() {
         return Sweet;
     }
 
-    /**
-     * 
-     * @param Sweet
-     *     The Sweet
-     */
-    public void setSweet(double Sweet) {
-        this.Sweet = Sweet;
-    }
-
-    /**
-     * 
-     * @return
-     *     The Sour
-     */
-    public double getSour() {
+    public float getSour() {
         return Sour;
     }
 
-    /**
-     * 
-     * @param Sour
-     *     The Sour
-     */
-    public void setSour(double Sour) {
-        this.Sour = Sour;
-    }
-
-    /**
-     * 
-     * @return
-     *     The Salty
-     */
-    public double getSalty() {
+    public float getSalty() {
         return Salty;
     }
-
-    /**
-     * 
-     * @param Salty
-     *     The Salty
-     */
-    public void setSalty(double Salty) {
-        this.Salty = Salty;
-    }
-
 }

@@ -12,4 +12,12 @@
     <color name="window_background">#FFF5F5F5</color>
     <color name="tint">#66000000</color>
 
+    <color name="progress_background">#B6B6B6</color>
+    <color name="color_salty">#83d3d0</color>
+    <color name="color_savory">#e08720</color>
+    <color name="color_sour">#e2c713</color>
+    <color name="color_bitter">#7bb338</color>
+    <color name="color_sweet">#e87aab</color>
+    <color name="color_spicy">#d4472b</color>
+
 </resources>

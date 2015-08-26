@@ -22,6 +22,8 @@ public class Match {
     @Expose
     private Integer rating;
 
+    private String likes;
+
     private Random random=new Random();
 
     public String getSourceDisplayName() {
@@ -49,19 +51,28 @@ public class Match {
     }
 
     public String getDuration(){
-        int hours = getTotalTimeInSeconds() / 3600;
-        int minutes = (getTotalTimeInSeconds() % 3600) / 60;
-        if (hours==0){
-            return minutes + "m";
-        } else if (minutes==0){
-            return hours + "h";
+        if (getTotalTimeInSeconds()==null){
+            return "0";
         } else {
-            return hours + "h " + minutes + "m";
+            int hours = getTotalTimeInSeconds() / 3600;
+            int minutes = (getTotalTimeInSeconds() % 3600) / 60;
+            if (hours==0){
+                return minutes + "m";
+            } else if (minutes==0){
+                return hours + "h";
+            } else {
+                return hours + "h " + minutes + "m";
+            }
         }
+
     }
 
-    public int getLikes(){
-        return getRating()*100 + random.nextInt(99);
+    public void setLikes(){
+        this.likes=String.valueOf(getRating()*100 + random.nextInt(99));
+    }
+
+    public String getLikes(){
+        return likes;
     }
 
     @Override

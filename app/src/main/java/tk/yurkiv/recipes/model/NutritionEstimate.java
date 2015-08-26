@@ -1,7 +1,6 @@
 
 package tk.yurkiv.recipes.model;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 
 public class NutritionEstimate {
