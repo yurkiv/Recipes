@@ -19,17 +19,18 @@
             android:layout_margin="16dp" />
 
         <View
-            android:id="@+id/divider_description_child"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />
+            android:layout_height="1px"
+            android:background="@color/divider" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Read full directions on"
             android:id="@+id/btnDirections"
-            android:layout_margin="16dp" />
+            android:layout_margin="16dp"
+            android:background="@color/accent"
+            android:theme="@style/Widget.AppCompat.Button" />
 
 
         <!--<android.support.v7.widget.RecyclerView-->

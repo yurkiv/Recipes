@@ -42,7 +42,8 @@
                     android:layout_height="wrap_content"
                     android:text="433"
                     android:id="@+id/tvRating"
-                    android:layout_marginLeft="4dp"/>
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center_vertical" />
             </LinearLayout>
 
         </LinearLayout>

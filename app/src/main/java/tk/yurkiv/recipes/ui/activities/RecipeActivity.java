@@ -1,8 +1,11 @@
 package tk.yurkiv.recipes.ui.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -19,8 +24,8 @@ import android.widget.TextView;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -30,30 +35,37 @@ import retrofit.client.Response;
 import tk.yurkiv.recipes.R;
 import tk.yurkiv.recipes.api.YummlyApi;
 import tk.yurkiv.recipes.api.YummlyService;
+import tk.yurkiv.recipes.model.Ingredient;
 import tk.yurkiv.recipes.model.NutritionEstimate;
 import tk.yurkiv.recipes.model.YummlyRecipe;
 import tk.yurkiv.recipes.ui.adapters.IngredientsAdapter;
-import tk.yurkiv.recipes.ui.adapters.NutritionAdapter;
 
 public class RecipeActivity extends AppCompatActivity {
 
+    private static final String TAG = "RecipeActivity";
     public static final String RECIPE_ID_KEY="recipe_key";
     public static final String RECIPE_RATING_KEY="recipe_rating_key";
+    private static final Interpolator INTERPOLATOR = new DecelerateInterpolator();
+
 
     @InjectView(R.id.toolbar) protected Toolbar toolbar;
     @InjectView(R.id.collapsing_toolbar) protected CollapsingToolbarLayout collapsingToolbar;
+    @InjectView(R.id.nestedScrollView) protected NestedScrollView nestedScrollView;
+
+
     @InjectView(R.id.cvIntro) protected CardView cvIntro;
     @InjectView(R.id.cvIngredients) protected CardView cvIngredients;
     @InjectView(R.id.cvDirections) protected CardView cvDirections;
     @InjectView(R.id.cvFlavors) protected CardView cvFlavors;
+
     @InjectView(R.id.backdrop) protected ImageView ivBackdrop;
+    @InjectView(R.id.fab) protected FloatingActionButton fab;
+
     @InjectView(R.id.tvRating) protected TextView tvRating;
     @InjectView(R.id.tvTime) protected TextView tvTime;
     @InjectView(R.id.tvServ) protected TextView tvServ;
     @InjectView(R.id.tvIngCount) protected TextView tvIngCount;
     @InjectView(R.id.tvKcal) protected TextView tvKcal;
-    @InjectView(R.id.tvIngredients) protected TextView tvIngredients;
-    @InjectView(R.id.btnDirections) protected Button btnDirections;
 
     @InjectView(R.id.pbSalty) protected RoundCornerProgressBar pbSalty;
     @InjectView(R.id.pbSavory) protected RoundCornerProgressBar pbSavory;
@@ -62,18 +74,34 @@ public class RecipeActivity extends AppCompatActivity {
     @InjectView(R.id.pbSweet) protected RoundCornerProgressBar pbSweet;
     @InjectView(R.id.pbSpicy) protected RoundCornerProgressBar pbSpicy;
 
-//    @InjectView(R.id.rvIngredients) protected RecyclerView rvIngredients;
+    @InjectView(R.id.lvIngredients) protected ListView lvIngredients;
+    @InjectView(R.id.btnClearIngredients) protected Button btnClearIngredients;
+    @InjectView(R.id.btnAddIngredients) protected Button btnAddIngredients;
 
-    private IngredientsAdapter ingredientsAdapter;
+    @InjectView(R.id.btnDirections) protected Button btnDirections;
 
     private YummlyService yummlyService;
-    private NutritionAdapter nutritionAdapter;
+
+    private IngredientsAdapter ingredientsAdapter;
+//    private NutritionAdapter nutritionAdapter;
+    private String urlRecipeDirections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         ButterKnife.inject(this);
+
+        cvIntro.setScaleY(0);
+        cvIntro.setScaleX(0);
+        cvIngredients.setScaleY(0);
+        cvIngredients.setScaleX(0);
+        cvFlavors.setScaleY(0);
+        cvFlavors.setScaleX(0);
+        cvDirections.setScaleY(0);
+        cvDirections.setScaleX(0);
+        fab.setScaleY(0);
+        fab.setScaleX(0);
 
         Intent intent = getIntent();
         final String recipeId = intent.getStringExtra(RECIPE_ID_KEY);
@@ -82,7 +110,7 @@ public class RecipeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        yummlyService= YummlyApi.getService();
+        yummlyService=YummlyApi.getService();
         yummlyService.getRecipe(recipeId, new Callback<YummlyRecipe>() {
             @Override
             public void success(YummlyRecipe recipe, Response response) {
@@ -93,9 +121,8 @@ public class RecipeActivity extends AppCompatActivity {
                 tvServ.setText(String.valueOf(recipe.getNumberOfServings()) + " servings");
                 tvIngCount.setText(String.valueOf(recipe.getIngredientLines().size()) + " count");
                 tvKcal.setText(getEnergy(recipe.getNutritionEstimates()) + " kcal");
-                tvIngredients.setText(getIngredients(recipe.getIngredientLines()));
-                btnDirections.setText(recipe.getSource().getSourceDisplayName());
-                if (recipe.getFlavors()!=null){
+
+                if (recipe.getFlavors() != null) {
                     pbSalty.setProgress(recipe.getFlavors().getSalty());
                     pbSavory.setProgress(recipe.getFlavors().getMeaty());
                     pbSour.setProgress(recipe.getFlavors().getSour());
@@ -104,10 +131,20 @@ public class RecipeActivity extends AppCompatActivity {
                     pbSpicy.setProgress(recipe.getFlavors().getPiquant());
                 }
 
+                ingredientsAdapter = new IngredientsAdapter(RecipeActivity.this, getIngredients(recipe.getIngredientLines()));
+                lvIngredients.setAdapter(ingredientsAdapter);
+                setListViewHeightBasedOnItems(lvIngredients);
+                nestedScrollView.scrollTo(0,0);
 
-                cvIntro.setVisibility(View.VISIBLE);
-                cvIngredients.setVisibility(View.VISIBLE);
-                cvDirections.setVisibility(View.VISIBLE);
+                btnDirections.setText("Read full directions on " + recipe.getSource().getSourceDisplayName());
+                urlRecipeDirections=recipe.getSource().getSourceRecipeUrl();
+
+                fab.animate().scaleY(1).scaleX(1).setDuration(300).setInterpolator(INTERPOLATOR).start();
+                cvIntro.animate().scaleY(1).scaleX(1).setDuration(300).setInterpolator(INTERPOLATOR).start();
+                cvIngredients.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(100).setInterpolator(INTERPOLATOR).start();
+                cvFlavors.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(200).setInterpolator(INTERPOLATOR).start();
+                cvDirections.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(300).setInterpolator(INTERPOLATOR).start();
+
 
             }
 
@@ -117,17 +154,20 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
-//        setupFlavorsViews();
+        btnClearIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ingredientsAdapter.uncheckAllChildrenCascade(lvIngredients);
+            }
+        });
 
-//        ingredientsAdapter=new IngredientsAdapter(this, getIngredients());
-////        IngredientsLinearLayoutManager layoutManager = new IngredientsLinearLayoutManager(this);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(rvIngredients, LinearLayoutManager.VERTICAL, false);
-//        layoutManager.setOverScrollMode(ViewCompat.OVER_SCROLL_NEVER);
-//        rvIngredients.setLayoutManager(layoutManager);
-//        rvIngredients.setAdapter(ingredientsAdapter);
-
-
-
+        btnDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(urlRecipeDirections));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -152,20 +192,14 @@ public class RecipeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupFlavorsViews(){
-
-        Random random=new Random();
-
-
-    }
-
-    public String getIngredients(List<String> ing) {
-        StringBuffer buffer=new StringBuffer();
-        for (String ingredient:ing){
-            buffer.append(ingredient);
-            buffer.append("\n");
+    public List<Ingredient> getIngredients(List<String> ing) {
+        List<Ingredient> ingredients=new ArrayList<>();
+        Ingredient ingredient=null;
+        for (String ingredientStr:ing){
+            ingredient=new Ingredient(ingredientStr, false);
+            ingredients.add(ingredient);
         }
-        return buffer.toString();
+        return ingredients;
     }
 
     public String getEnergy(List<NutritionEstimate> nutritionEstimates){

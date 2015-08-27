@@ -5,11 +5,11 @@ package tk.yurkiv.recipes.model;
  */
 public class Ingredient {
     private String name;
-    private boolean isSelected;
+    private boolean selected;
 
-    public Ingredient(String name, boolean isSelected) {
+    public Ingredient(String name, boolean selected) {
         this.name = name;
-        this.isSelected = isSelected;
+        this.selected = selected;
     }
 
     public String getName() {
@@ -17,10 +17,10 @@ public class Ingredient {
     }
 
     public boolean isSelected() {
-        return isSelected;
+        return selected;
     }
 
-    public void setIsSelected(boolean isSelected) {
-        this.isSelected = isSelected;
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

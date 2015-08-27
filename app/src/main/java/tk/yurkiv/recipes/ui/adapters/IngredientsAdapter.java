@@ -1,12 +1,12 @@
 package tk.yurkiv.recipes.ui.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import java.util.List;
 
@@ -16,56 +16,77 @@ import tk.yurkiv.recipes.R;
 import tk.yurkiv.recipes.model.Ingredient;
 
 /**
- * Created by yurkiv on 19.08.2015.
+ * Created by yurkiv on 26.08.2015.
  */
-public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
+public class IngredientsAdapter extends BaseAdapter {
 
     private Context context;
     private List<Ingredient> ingredients;
+    LayoutInflater inflater;
 
     public IngredientsAdapter(Context context, List<Ingredient> ingredients) {
-        this.context = context;
-        this.ingredients = ingredients;
-        Log.d("TAG", String.valueOf(ingredients.size()));
-
+        this.context=context;
+        this.ingredients=ingredients;
+        inflater = LayoutInflater.from(this.context);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.item_ingredient, parent, false);
-        return new ViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.chbIngredientItem.setText(ingredients.get(position).getName());
-        Log.d("TAG", ingredients.get(position).getName());
-
-        holder.chbIngredientItem.setChecked(ingredients.get(position).isSelected());
-        holder.chbIngredientItem.setTag(ingredients.get(position));
-
-        holder.chbIngredientItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                Ingredient ingredient = (Ingredient) cb.getTag();
-                ingredient.setIsSelected(cb.isChecked());
-                ingredients.get(position).setIsSelected(cb.isChecked());
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return ingredients.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Ingredient getItem(int position) {
+        return ingredients.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View view, ViewGroup parent) {
+        if (view != null) {
+            ((ViewHolder) view.getTag()).chbIngredientItem.setTag(getItem(position));
+        } else {
+            view = inflater.inflate(R.layout.item_ingredient, parent, false);
+            final ViewHolder holder = new ViewHolder(view);
+            holder.chbIngredientItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Ingredient ingredient = (Ingredient) holder.chbIngredientItem.getTag();
+                    ingredient.setSelected(buttonView.isChecked());
+                }
+            });
+            view.setTag(holder);
+            holder.chbIngredientItem.setTag(getItem(position));
+        }
+
+        ViewHolder holder = (ViewHolder) view.getTag();
+        holder.chbIngredientItem.setText(getItem(position).getName());
+        holder.chbIngredientItem.setChecked(getItem(position).isSelected());
+
+        return view;
+    }
+
+    public void uncheckAllChildrenCascade(ViewGroup vg) {
+        for (int i = 0; i < vg.getChildCount(); i++) {
+            View v = vg.getChildAt(i);
+            if (v instanceof CheckBox) {
+                ((CheckBox) v).setChecked(false);
+                getItem(i).setSelected(false);
+            } else if (v instanceof ViewGroup) {
+                uncheckAllChildrenCascade((ViewGroup) v);
+            }
+        }
+    }
+
+    static class ViewHolder {
 
         @InjectView(R.id.chbIngredientItem) protected CheckBox chbIngredientItem;
 
         public ViewHolder(View itemView) {
-            super(itemView);
             ButterKnife.inject(this, itemView);
         }
     }
