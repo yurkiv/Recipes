@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,6 +96,8 @@ public class RecipeActivity extends AppCompatActivity {
     private String urlRecipeDirections;
 
     private SharedPreferences settings;
+    private Set<String> favRecipesIds;
+    private boolean isFavorite=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +110,11 @@ public class RecipeActivity extends AppCompatActivity {
         final String recipeRating = intent.getStringExtra(RECIPE_RATING_KEY);
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
+        favRecipesIds=settings.getStringSet("fav", new HashSet<String>());
+        if (favRecipesIds.contains(recipeId)){
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
+            isFavorite=true;
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -183,11 +191,19 @@ public class RecipeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Set<String> favRecipesIds=settings.getStringSet("fav", new HashSet<String>());
-                favRecipesIds.add(recipeId);
+                if (isFavorite){
+                    favRecipesIds.remove(recipeId);
+                    fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_outline));
+                    isFavorite=false;
+                } else {
+                    fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
+                    favRecipesIds.add(recipeId);
+                    isFavorite=true;
+                }
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putStringSet("fav", favRecipesIds);
                 editor.commit();
+                Log.d(TAG, "favRecipesIds: " + favRecipesIds.toString());
             }
         });
 

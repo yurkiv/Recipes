@@ -3,7 +3,6 @@ package tk.yurkiv.recipes.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +43,8 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         yummlyService= YummlyApi.getService();
-        matches=getMatches();
+        matches=new ArrayList<>();
+        getFirstMatches();
         recipesAdapter=new RecipesAdapter(getActivity(), matches);
     }
 
@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         ButterKnife.inject(this, rootView);
 
         rvRecipes.setHasFixedSize(true);
-        rvRecipes.setLayoutManager(getGridLayoutManager());
+        rvRecipes.setLayoutManager(Utils.getGridLayoutManager(getActivity()));
 
         rvRecipes.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
@@ -82,8 +82,7 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private List<Match> getMatches(){
-        final List<Match> matches=new ArrayList<>();
+    private void getFirstMatches(){
         yummlyService.getRecipesByQuery(null, 20, 0, new Callback<YummlyRecipesListResponse>() {
             @Override
             public void success(YummlyRecipesListResponse yummlyRecipesListResponse, Response response) {
@@ -96,47 +95,6 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "Failed call: " + error.toString());
             }
         });
-        return matches;
-    }
-
-    private GridLayoutManager getGridLayoutManager() {
-        final boolean isTablet=Utils.isTablet(getActivity());
-        int spanCount=2;
-        if (isTablet){
-            spanCount=6;
-        }
-
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(), spanCount, GridLayoutManager.VERTICAL, false);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (isTablet){
-                    int index = position % 5;
-                    int span = 3;
-                    switch (index) {
-                        case 0:
-                            span = 2;
-                            break;
-                        case 1:
-                            span = 2;
-                            break;
-                        case 2:
-                            span = 2;
-                            break;
-                        case 3:
-                            span = 3;
-                            break;
-                        case 4:
-                            span = 3;
-                            break;
-                    }
-                    return span;
-                } else {
-                    return (position % 3 == 0 ? 2 : 1); //for phone
-                }
-            }
-        });
-        return gridLayoutManager;
     }
 
 }
