@@ -36,7 +36,6 @@ public class HomeFragment extends Fragment {
     private List<Match> matches;
     private YummlyService yummlyService;
 
-
     public HomeFragment() {}
 
     @Override
