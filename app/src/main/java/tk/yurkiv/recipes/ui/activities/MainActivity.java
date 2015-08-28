@@ -20,6 +20,7 @@ import tk.yurkiv.recipes.ui.fragments.CategoryFragment;
 import tk.yurkiv.recipes.ui.fragments.ExploreFragment;
 import tk.yurkiv.recipes.ui.fragments.FavouritesFragment;
 import tk.yurkiv.recipes.ui.fragments.HomeFragment;
+import tk.yurkiv.recipes.ui.fragments.ShoppingListFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -83,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.favourites:
                 displayFragment(new FavouritesFragment());
+                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawers();
+                return true;
+            case R.id.shopping_list:
+                displayFragment(new ShoppingListFragment());
                 Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
                 drawerLayout.closeDrawers();
                 return true;

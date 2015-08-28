@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -80,6 +81,16 @@ public class IngredientsAdapter extends BaseAdapter {
                 uncheckAllChildrenCascade((ViewGroup) v);
             }
         }
+    }
+
+    public List<String> getAllChecked(){
+        List<String> ingredients=new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            if (getItem(i).isSelected()){
+                ingredients.add(getItem(i).getName());
+            }
+        }
+        return ingredients;
     }
 
     static class ViewHolder {

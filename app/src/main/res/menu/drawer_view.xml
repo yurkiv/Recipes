@@ -19,32 +19,31 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/ic_action_navigation_menu"
+            android:icon="@drawable/ic_home"
             android:checked="true"
             android:title="Home" />
         <item
             android:id="@+id/category"
-            android:icon="@drawable/ic_action_navigation_menu"
+            android:icon="@drawable/ic_category"
             android:title="Category" />
         <item
             android:id="@+id/explore"
-            android:icon="@drawable/ic_action_navigation_menu"
+            android:icon="@drawable/ic_explore"
             android:title="Explore" />
         <item
             android:id="@+id/favourites"
-            android:icon="@drawable/ic_action_navigation_menu"
+            android:icon="@drawable/ic_like"
             android:title="Favourites" />
+        <item
+            android:id="@+id/shopping_list"
+            android:icon="@drawable/ic_shopping"
+            android:title="Shopping List" />
+        <item
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+        <item
+            android:icon="@drawable/ic_action_navigation_menu"
+            android:title="Help" />
     </group>
-
-    <item android:title="Sub items">
-        <menu>
-            <item
-                android:icon="@drawable/ic_action_navigation_menu"
-                android:title="Settings" />
-            <item
-                android:icon="@drawable/ic_action_navigation_menu"
-                android:title="Help" />
-        </menu>
-    </item>
 
 </menu>

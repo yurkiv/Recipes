@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, rootView);
-
+        getActivity().setTitle("Home");
         rvRecipes.setHasFixedSize(true);
         rvRecipes.setLayoutManager(Utils.getGridLayoutManager(getActivity()));
 

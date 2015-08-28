@@ -15,7 +15,10 @@
 
         <include layout="@layout/view_recipe_intro"/>
 
-        <include layout="@layout/view_recipe_flavors"/>
+        <include layout="@layout/view_recipe_flavors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 
@@ -27,9 +30,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp">
 
-        <include layout="@layout/view_recipe_ingredients" />
-
         <include layout="@layout/view_recipe_directions"/>
+
+        <include layout="@layout/view_recipe_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
     </LinearLayout>
 
 </LinearLayout>

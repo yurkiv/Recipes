@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/borderlessButtonStyle"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:text="Clear"
                 android:id="@+id/btnClearIngredients"
                 android:textColor="@color/accent" />
@@ -53,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/borderlessButtonStyle"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:text="Add to shopping list"
                 android:id="@+id/btnAddIngredients"
                 android:layout_marginLeft="8dp"

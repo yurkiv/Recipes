@@ -52,6 +52,7 @@ public class FavouritesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_favourites, container, false);
         ButterKnife.inject(this, rootView);
+        getActivity().setTitle("Favourites");
 
         rvFavouritesRecipes.setHasFixedSize(true);
         rvFavouritesRecipes.setLayoutManager(Utils.getGridLayoutManager(getActivity()));

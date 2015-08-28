@@ -191,14 +191,14 @@ public class RecipeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFavorite){
+                if (isFavorite) {
                     favRecipesIds.remove(recipeId);
                     fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_outline));
-                    isFavorite=false;
+                    isFavorite = false;
                 } else {
                     fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
                     favRecipesIds.add(recipeId);
-                    isFavorite=true;
+                    isFavorite = true;
                 }
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putStringSet("fav", favRecipesIds);
@@ -211,6 +211,21 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ingredientsAdapter.uncheckAllChildrenCascade(lvIngredients);
+            }
+        });
+
+        btnAddIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set<String> shoppingList=settings.getStringSet("shopping_list", new HashSet<String>());
+                shoppingList.addAll(ingredientsAdapter.getAllChecked());
+                Log.d(TAG, "getAllChecked: " + ingredientsAdapter.getAllChecked());
+
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putStringSet("shopping_list", shoppingList);
+                editor.commit();
+                Log.d(TAG, "shoppingList: " + shoppingList.toString());
+
             }
         });
 
