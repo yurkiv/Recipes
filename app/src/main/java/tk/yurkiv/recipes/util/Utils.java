@@ -1,5 +1,8 @@
 package tk.yurkiv.recipes.util;
 
+import android.content.Context;
+import android.content.res.Configuration;
+
 import java.util.Random;
 
 /**
@@ -19,5 +22,11 @@ public class Utils {
 
     public static int getLikes(int likes){
         return likes*100 + random.nextInt(99);
+    }
+
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }

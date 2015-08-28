@@ -37,5 +37,6 @@ dependencies {
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     compile 'org.apmem.tools:layouts:1.9@aar'
     compile 'com.akexorcist:RoundCornerProgressBar:1.2.3'
-
+    compile 'com.vlonjatg.android:progress-activity:1.1.1'
+    compile 'me.zhanghai.android.materialprogressbar:library:1.0.2'
 }

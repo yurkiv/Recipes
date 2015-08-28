@@ -1,11 +1,15 @@
 package tk.yurkiv.recipes.ui.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.NestedScrollView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -19,16 +23,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import me.zhanghai.android.materialprogressbar.IndeterminateProgressDrawable;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -50,8 +58,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar) protected Toolbar toolbar;
     @InjectView(R.id.collapsing_toolbar) protected CollapsingToolbarLayout collapsingToolbar;
-    @InjectView(R.id.nestedScrollView) protected NestedScrollView nestedScrollView;
-
+    @InjectView(R.id.progressBar) protected ProgressBar progressBar;
 
     @InjectView(R.id.cvIntro) protected CardView cvIntro;
     @InjectView(R.id.cvIngredients) protected CardView cvIngredients;
@@ -78,13 +85,16 @@ public class RecipeActivity extends AppCompatActivity {
     @InjectView(R.id.btnClearIngredients) protected Button btnClearIngredients;
     @InjectView(R.id.btnAddIngredients) protected Button btnAddIngredients;
 
-    @InjectView(R.id.btnDirections) protected Button btnDirections;
+    @InjectView(R.id.tvDirections) protected TextView btnDirections;
 
     private YummlyService yummlyService;
 
     private IngredientsAdapter ingredientsAdapter;
 //    private NutritionAdapter nutritionAdapter;
+    private String urlRecipeName;
     private String urlRecipeDirections;
+
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +102,24 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
         ButterKnife.inject(this);
 
+        Intent intent = getIntent();
+        final String recipeId = intent.getStringExtra(RECIPE_ID_KEY);
+        final String recipeRating = intent.getStringExtra(RECIPE_RATING_KEY);
+
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        progressBar.setIndeterminateDrawable(new IndeterminateProgressDrawable(this));
+
+        ivBackdrop.setAlpha(0f);
         cvIntro.setScaleY(0);
         cvIntro.setScaleX(0);
         cvIngredients.setScaleY(0);
@@ -102,13 +130,6 @@ public class RecipeActivity extends AppCompatActivity {
         cvDirections.setScaleX(0);
         fab.setScaleY(0);
         fab.setScaleX(0);
-
-        Intent intent = getIntent();
-        final String recipeId = intent.getStringExtra(RECIPE_ID_KEY);
-        final String recipeRating = intent.getStringExtra(RECIPE_RATING_KEY);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         yummlyService=YummlyApi.getService();
         yummlyService.getRecipe(recipeId, new Callback<YummlyRecipe>() {
@@ -122,35 +143,51 @@ public class RecipeActivity extends AppCompatActivity {
                 tvIngCount.setText(String.valueOf(recipe.getIngredientLines().size()) + " count");
                 tvKcal.setText(getEnergy(recipe.getNutritionEstimates()) + " kcal");
 
-                if (recipe.getFlavors() != null) {
+                if (recipe.getFlavors().getMeaty() != 0) {
                     pbSalty.setProgress(recipe.getFlavors().getSalty());
                     pbSavory.setProgress(recipe.getFlavors().getMeaty());
                     pbSour.setProgress(recipe.getFlavors().getSour());
                     pbBitter.setProgress(recipe.getFlavors().getBitter());
                     pbSweet.setProgress(recipe.getFlavors().getSweet());
                     pbSpicy.setProgress(recipe.getFlavors().getPiquant());
+                } else {
+                    cvFlavors.setVisibility(View.GONE);
                 }
 
                 ingredientsAdapter = new IngredientsAdapter(RecipeActivity.this, getIngredients(recipe.getIngredientLines()));
                 lvIngredients.setAdapter(ingredientsAdapter);
-                setListViewHeightBasedOnItems(lvIngredients);
-                nestedScrollView.scrollTo(0,0);
 
                 btnDirections.setText("Read full directions on " + recipe.getSource().getSourceDisplayName());
                 urlRecipeDirections=recipe.getSource().getSourceRecipeUrl();
+                urlRecipeName=recipe.getName();
 
-                fab.animate().scaleY(1).scaleX(1).setDuration(300).setInterpolator(INTERPOLATOR).start();
-                cvIntro.animate().scaleY(1).scaleX(1).setDuration(300).setInterpolator(INTERPOLATOR).start();
-                cvIngredients.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(100).setInterpolator(INTERPOLATOR).start();
-                cvFlavors.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(200).setInterpolator(INTERPOLATOR).start();
-                cvDirections.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(300).setInterpolator(INTERPOLATOR).start();
-
-
+                progressBar.setVisibility(View.GONE);
+                animateCards();
             }
 
             @Override
             public void failure(RetrofitError error) {
+                Snackbar.make(findViewById(R.id.main_content),
+                        "No Connection",
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Close", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        })
+                        .show(); // Do not forget to show!
+            }
+        });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set<String> favRecipesIds=settings.getStringSet("fav", new HashSet<String>());
+                favRecipesIds.add(recipeId);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putStringSet("fav", favRecipesIds);
+                editor.commit();
             }
         });
 
@@ -161,7 +198,7 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
-        btnDirections.setOnClickListener(new View.OnClickListener() {
+        cvDirections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(urlRecipeDirections));
@@ -170,26 +207,47 @@ public class RecipeActivity extends AppCompatActivity {
         });
     }
 
+    private void animateCards(){
+        ivBackdrop.animate().alpha(1f).setDuration(500).setInterpolator(INTERPOLATOR);
+        fab.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR).start();
+        cvIntro.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(300).setInterpolator(INTERPOLATOR).start();
+        cvIngredients.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        setListViewHeightBasedOnItems(lvIngredients);
+                    }
+                }).start();
+        cvFlavors.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR).start();
+        cvDirections.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(500).setInterpolator(INTERPOLATOR).start();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_recipe, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()){
+            case R.id.action_share:
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, urlRecipeName);
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, urlRecipeDirections);
+                startActivity(sharingIntent);
+                return true;
+            case R.id.action_open_web_link:
+                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(urlRecipeDirections));
+                startActivity(intent);
+                return true;
+            case R.id.action_about:
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public List<Ingredient> getIngredients(List<String> ing) {
@@ -241,7 +299,6 @@ public class RecipeActivity extends AppCompatActivity {
             params.height = totalItemsHeight + totalDividersHeight;
             listView.setLayoutParams(params);
             listView.requestLayout();
-
             return true;
 
         } else {

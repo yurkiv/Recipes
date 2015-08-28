@@ -23,12 +23,11 @@
             android:src="@drawable/food"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/item_recipe_height"
             app:sriv_left_top_corner_radius="4dp"
             app:sriv_right_top_corner_radius="4dp"
             app:sriv_left_bottom_corner_radius="4dp"
-            app:sriv_right_bottom_corner_radius="4dp"
-            android:tint="@color/tint" />
+            app:sriv_right_bottom_corner_radius="4dp" />
 
         <TextView
             android:layout_width="wrap_content"

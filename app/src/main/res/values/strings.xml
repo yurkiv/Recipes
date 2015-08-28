@@ -8,4 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_recipe">RecipeActivity</string>
     <string name="recipe">Recipe</string>
+    <string name="action_share">Share</string>
+    <string name="action_open_web_link">Open web link</string>
+    <string name="action_about">About</string>
 </resources>

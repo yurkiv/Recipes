@@ -25,6 +25,7 @@ import tk.yurkiv.recipes.model.Match;
 import tk.yurkiv.recipes.model.YummlyRecipesListResponse;
 import tk.yurkiv.recipes.ui.adapters.RecipesAdapter;
 import tk.yurkiv.recipes.util.EndlessRecyclerOnScrollListener;
+import tk.yurkiv.recipes.util.Utils;
 
 public class HomeFragment extends Fragment {
 
@@ -99,31 +100,40 @@ public class HomeFragment extends Fragment {
     }
 
     private GridLayoutManager getGridLayoutManager() {
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(), 6, GridLayoutManager.VERTICAL, false);
+        final boolean isTablet=Utils.isTablet(getActivity());
+        int spanCount=2;
+        if (isTablet){
+            spanCount=6;
+        }
+
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(), spanCount, GridLayoutManager.VERTICAL, false);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-//                return (position % 3 == 0 ? 2 : 1); //for phone
-                int index = position % 5;
-                int span = 3;
-                switch (index) {
-                    case 0:
-                        span = 2;
-                        break;
-                    case 1:
-                        span = 2;
-                        break;
-                    case 2:
-                        span = 2;
-                        break;
-                    case 3:
-                        span = 3;
-                        break;
-                    case 4:
-                        span = 3;
-                        break;
+                if (isTablet){
+                    int index = position % 5;
+                    int span = 3;
+                    switch (index) {
+                        case 0:
+                            span = 2;
+                            break;
+                        case 1:
+                            span = 2;
+                            break;
+                        case 2:
+                            span = 2;
+                            break;
+                        case 3:
+                            span = 3;
+                            break;
+                        case 4:
+                            span = 3;
+                            break;
+                    }
+                    return span;
+                } else {
+                    return (position % 3 == 0 ? 2 : 1); //for phone
                 }
-                return span;
             }
         });
         return gridLayoutManager;

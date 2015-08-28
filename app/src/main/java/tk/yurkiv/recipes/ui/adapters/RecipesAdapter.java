@@ -48,7 +48,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         holder.tvRecipeNameItem.setText(match.getRecipeName());
         holder.tvRatingItem.setText(match.getLikes());
         holder.tvTimeItem.setText(match.getDuration());
-
+        holder.ivRecipeItem.setColorFilter(context.getResources().getColor(R.color.tint));
         Picasso.with(context).load(match.getSmallImageUrls().get(0) + "0").into(holder.ivRecipeItem, new Callback() {
             @Override
             public void onSuccess() {
