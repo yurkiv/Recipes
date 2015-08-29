@@ -11,4 +11,5 @@
     <string name="action_share">Share</string>
     <string name="action_open_web_link">Open web link</string>
     <string name="action_about">About</string>
+    <string name="title_activity_category">CategoryActivity</string>
 </resources>

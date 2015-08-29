@@ -22,6 +22,10 @@
             android:name=".ui.activities.RecipeActivity"
             android:label="@string/title_activity_recipe" >
         </activity>
+        <activity
+            android:name=".ui.activities.CategoryActivity"
+            android:label="@string/title_activity_category" >
+        </activity>
     </application>
 
 </manifest>

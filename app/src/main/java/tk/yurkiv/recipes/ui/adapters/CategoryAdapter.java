@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -42,8 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.tvCategoryNameItem.setText(category.getName());
         holder.ivCategoryItem.setColorFilter(context.getResources().getColor(R.color.tint));
-        holder.ivCategoryItem.setImageResource(category.getImageResourceId());
-//        Picasso.with(context).load(category.getImageResourceId()).into(holder.ivCategoryItem);
+        Picasso.with(context).load(category.getImageResourceId()).into(holder.ivCategoryItem);
     }
 
     @Override
