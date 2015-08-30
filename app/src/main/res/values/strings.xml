@@ -12,4 +12,6 @@
     <string name="action_open_web_link">Open web link</string>
     <string name="action_about">About</string>
     <string name="title_activity_category">CategoryActivity</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_fragment_holder">FragmentHolderActivity</string>
 </resources>

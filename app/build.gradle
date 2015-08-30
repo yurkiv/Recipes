@@ -39,4 +39,8 @@ dependencies {
     compile 'com.akexorcist:RoundCornerProgressBar:1.2.3'
     compile 'com.vlonjatg.android:progress-activity:1.1.1'
     compile 'me.zhanghai.android.materialprogressbar:library:1.0.2'
+
+    compile ('com.github.florent37:materialviewpager:1.1.0@aar'){
+        transitive = true
+    }
 }

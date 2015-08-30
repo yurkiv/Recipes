@@ -58,7 +58,7 @@ public class Utils {
                     }
                     return span;
                 } else {
-                    return (position % 3 == 0 ? 2 : 1); //for phone
+                    return ((position-1) % 3 == 0 ? 2 : 1); //for phone
                 }
             }
         });

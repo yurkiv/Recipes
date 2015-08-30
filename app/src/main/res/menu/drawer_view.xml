@@ -27,9 +27,21 @@
             android:icon="@drawable/ic_category"
             android:title="Category" />
         <item
-            android:id="@+id/explore"
+            android:id="@+id/cuisine"
+            android:icon="@drawable/ic_category"
+            android:title="Cuisine" />
+        <item
+            android:id="@+id/holiday"
             android:icon="@drawable/ic_explore"
-            android:title="Explore" />
+            android:title="Holiday" />
+        <item
+            android:id="@+id/diets"
+            android:icon="@drawable/ic_explore"
+            android:title="Diets" />
+        <item
+            android:id="@+id/allergy"
+            android:icon="@drawable/ic_explore"
+            android:title="Allergy" />
         <item
             android:id="@+id/favourites"
             android:icon="@drawable/ic_like"

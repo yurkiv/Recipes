@@ -1,54 +1,116 @@
 package tk.yurkiv.recipes.ui.activities;
 
+import android.content.res.AssetManager;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
+import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.header.HeaderDesign;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.InjectView;
 import tk.yurkiv.recipes.R;
-import tk.yurkiv.recipes.api.YummlyService;
-import tk.yurkiv.recipes.model.Match;
-import tk.yurkiv.recipes.ui.adapters.RecipesAdapter;
+import tk.yurkiv.recipes.model.Category;
+import tk.yurkiv.recipes.ui.fragments.HomeFragment;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends BaseActivity {
 
-    private static final String TAG = CategoryActivity.class.getSimpleName();
+    private MaterialViewPager mViewPager;
 
-    @InjectView(R.id.rvRecipes) protected RecyclerView rvRecipes;
-
-    private RecipesAdapter recipesAdapter;
-    private List<Match> matches;
-    private YummlyService yummlyService;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-    }
+        getLayoutInflater().inflate(R.layout.activity_category, frameLayout);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_category, menu);
-        return true;
-    }
+        final List<Category> categories=getCategories();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        setTitle("Category");
+        navigationView.getMenu().getItem(1).setChecked(true);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+
+
+        toolbar = mViewPager.getToolbar();
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+
+            final ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_menu);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
 
-        return super.onOptionsItemSelected(item);
+
+
+        mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
+            @Override
+            public Fragment getItem(int position) {
+                return HomeFragment.newInstance(null, null, null, null, categories.get(position).getSearchValue(), null);
+            }
+
+            @Override
+            public int getCount() {
+                return categories.size();
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return categories.get(position).getName();
+            }
+        });
+
+        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
+            @Override
+            public HeaderDesign getHeaderDesign(int page) {
+                Drawable drawable=getResources().getDrawable(categories.get(page).getImageResourceId());
+                drawable.setColorFilter(getResources().getColor(R.color.tint), PorterDuff.Mode.SRC_ATOP);
+                return HeaderDesign.fromColorResAndDrawable(R.color.primary, drawable);
+            }
+        });
+
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+    }
+
+    public List<Category> getCategories() {
+        List<Category> categories=new ArrayList<>();
+        try {
+            AssetManager assetManager = getAssets();
+            InputStream ims = assetManager.open("course.json");
+
+            Gson gson = new Gson();
+            Reader reader = new InputStreamReader(ims);
+            Type listType = new TypeToken<List<Category>>(){}.getType();
+
+            categories= (List<Category>) gson.fromJson(reader, listType);
+
+            String packageName = getPackageName();
+            for(Category category : categories){
+                category.setImageResourceId(getResources().getIdentifier(category.getImageId(), "drawable", packageName));
+            }
+
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
 }

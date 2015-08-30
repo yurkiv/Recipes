@@ -87,7 +87,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            int position=getLayoutPosition();
+            int position=getLayoutPosition()-1;
             Intent intent=new Intent(context, RecipeActivity.class);
             intent.putExtra(RecipeActivity.RECIPE_ID_KEY, matches.get(position).getId());
             intent.putExtra(RecipeActivity.RECIPE_RATING_KEY, matches.get(position).getLikes());

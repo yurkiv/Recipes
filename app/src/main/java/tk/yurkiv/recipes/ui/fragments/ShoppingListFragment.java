@@ -46,6 +46,7 @@ public class ShoppingListFragment extends Fragment {
         getActivity().setTitle("Shopping List");
 
         lvShopping.setAdapter(ingredientsAdapter);
+
         return rootView;
     }
 

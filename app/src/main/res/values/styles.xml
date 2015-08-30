@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Base.AppTheme">
@@ -13,6 +13,15 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/window_background</item>
+
+        <item name="android:windowTranslucentStatus" tools:targetApi="19">true</item>
+
+
+
+    </style>
+
+    <style name="ViewPagerTheme" parent="Base.AppTheme">
+        <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
     <style name="Widget.CardContent" parent="android:Widget">

@@ -1,14 +1,8 @@
-<FrameLayout
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rvRecipes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tk.yurkiv.matches.ui.fragments.HomeFragment">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvRecipes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="8dp" />
-
-</FrameLayout>
+    android:paddingLeft="8dp"
+    />
