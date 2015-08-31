@@ -10,10 +10,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ui.activities.MainActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name=".ui.activities.RecipeActivity"
             android:label="@string/title_activity_recipe" >
         </activity>
@@ -25,15 +21,16 @@
         <activity
             android:name=".ui.activities.BaseActivity"
             android:label="@string/title_activity_base">
+
+        </activity>
+        <activity
+            android:name=".ui.activities.FragmentHolderActivity"
+            android:label="@string/title_activity_fragment_holder" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.activities.FragmentHolderActivity"
-            android:label="@string/title_activity_fragment_holder" >
         </activity>
     </application>
 

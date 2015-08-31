@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
     private static final String CUISINE_KEY = "cuisine_key";
     private static final String COURSE_KEY = "course_key";
     private static final String HOLIDAY_KEY = "holiday_key";
+    private static final String DIET_KEY = "diet_key";
 
     @InjectView(R.id.rvRecipes) protected RecyclerView rvRecipes;
 
@@ -51,13 +52,15 @@ public class HomeFragment extends Fragment {
     private String allowedCuisine;
     private String allowedCourse;
     private String allowedHoliday;
+    private String allowedDiet;
 
     public static HomeFragment newInstance(String q,
                                            String allowedIngredient,
                                            String allowedAllergy,
                                            String allowedCuisine,
                                            String allowedCourse,
-                                           String allowedHoliday) {
+                                           String allowedHoliday,
+                                           String allowedDiet) {
         HomeFragment homeFragment=new HomeFragment();
         Bundle bundle=new Bundle();
         bundle.putString(QUERY_KEY, q);
@@ -66,6 +69,7 @@ public class HomeFragment extends Fragment {
         bundle.putString(CUISINE_KEY, allowedCuisine);
         bundle.putString(COURSE_KEY, allowedCourse);
         bundle.putString(HOLIDAY_KEY, allowedHoliday);
+        bundle.putString(DIET_KEY, allowedDiet);
         homeFragment.setArguments(bundle);
         return homeFragment;
     }
@@ -80,6 +84,7 @@ public class HomeFragment extends Fragment {
         allowedCuisine=getArguments().getString(CUISINE_KEY, null);
         allowedCourse=getArguments().getString(COURSE_KEY, null);
         allowedHoliday=getArguments().getString(HOLIDAY_KEY, null);
+        allowedDiet=getArguments().getString(DIET_KEY, null);
 
         Log.d(TAG, toString());
 
@@ -103,7 +108,7 @@ public class HomeFragment extends Fragment {
             public void onLoadMore(int currentPage) {
                 Log.d(TAG, "currentPage=" + currentPage);
                 yummlyService.getRecipes(q, 20, 20*currentPage, allowedIngredient, allowedAllergy, allowedCuisine,
-                        allowedCourse, allowedHoliday, new Callback<YummlyRecipesListResponse>() {
+                        allowedCourse, allowedHoliday, allowedDiet, new Callback<YummlyRecipesListResponse>() {
                             @Override
                             public void success(YummlyRecipesListResponse yummlyRecipesListResponse, Response response) {
                                 matches.addAll(yummlyRecipesListResponse.getMatches());
@@ -130,7 +135,7 @@ public class HomeFragment extends Fragment {
 
     private void getFirstMatches(){
         yummlyService.getRecipes(q, 20, 0, allowedIngredient, allowedAllergy, allowedCuisine,
-                allowedCourse, allowedHoliday, new Callback<YummlyRecipesListResponse>() {
+                allowedCourse, allowedHoliday, allowedDiet, new Callback<YummlyRecipesListResponse>() {
                     @Override
                     public void success(YummlyRecipesListResponse yummlyRecipesListResponse, Response response) {
                         matches.addAll(yummlyRecipesListResponse.getMatches());

@@ -23,6 +23,9 @@ public class Category {
     @Expose
     private String imageId;
 
+    @Expose
+    private String longDescription;
+
     private int imageResourceId;
 
     /**
@@ -147,5 +150,9 @@ public class Category {
 
     public void setImageResourceId(int imageResourceId) {
         this.imageResourceId = imageResourceId;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
     }
 }

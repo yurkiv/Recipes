@@ -8,17 +8,19 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import tk.yurkiv.recipes.R;
+import tk.yurkiv.recipes.ui.fragments.AllergyFragment;
+import tk.yurkiv.recipes.ui.fragments.DietFragment;
 import tk.yurkiv.recipes.ui.fragments.FavouritesFragment;
 import tk.yurkiv.recipes.ui.fragments.HomeFragment;
 import tk.yurkiv.recipes.ui.fragments.ShoppingListFragment;
 
 public class FragmentHolderActivity extends BaseActivity {
 
-    public static final String FRAGMENT_ID_KEY="fragment_key";
-
     private Toolbar toolbar;
+    private View toolbarShadow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,9 @@ public class FragmentHolderActivity extends BaseActivity {
 
         getLayoutInflater().inflate(R.layout.activity_fragment_holder, frameLayout);
         Intent intent = getIntent();
-        int fragmentIndex=intent.getIntExtra(FRAGMENT_ID_KEY, 0);
+        int fragmentIndex=intent.getIntExtra(DRAWER_ITEM_ID_KEY, 0);
 
+        toolbarShadow = findViewById(R.id.toolbar_shadow);
         toolbar = (Toolbar) findViewById(R.id.toolbar_fragment_holder);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
@@ -39,18 +42,26 @@ public class FragmentHolderActivity extends BaseActivity {
 
         switch (fragmentIndex) {
             case 0:
-                displayFragment(HomeFragment.newInstance(null, null, null, null, null, null));
+                displayFragment(HomeFragment.newInstance(null, null, null, null, null, null, null));
+                setTitle("Home");
+                toolbarShadow.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                displayFragment(new DietFragment());
                 break;
             case 5:
-                displayFragment(new FavouritesFragment());
+                displayFragment(new AllergyFragment());
                 break;
             case 6:
-                displayFragment(new ShoppingListFragment());
+                displayFragment(new FavouritesFragment());
                 break;
             case 7:
-
+                displayFragment(new ShoppingListFragment());
                 break;
             case 8:
+
+                break;
+            case 9:
 
                 break;
         }

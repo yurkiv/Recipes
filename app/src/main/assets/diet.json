@@ -1,11 +1,11 @@
-{
-  "diet":[
+[
     {
       "id":"388",
       "shortDescription":"Lacto vegetarian",
       "longDescription":"Lacto vegetarian",
       "searchValue":"388^Lacto vegetarian",
       "type":"diet",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -16,6 +16,7 @@
       "longDescription":"Ovo vegetarian",
       "searchValue":"389^Ovo vegetarian",
       "type":"diet",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -26,6 +27,7 @@
       "longDescription":"Pescetarian",
       "searchValue":"390^Pescetarian",
       "type":"diet",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -36,6 +38,7 @@
       "longDescription":"Vegan",
       "searchValue":"386^Vegan",
       "type":"diet",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -46,6 +49,7 @@
       "longDescription":"Vegetarian",
       "searchValue":"387^Lacto-ovo vegetarian",
       "type":"diet",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -56,9 +60,9 @@
       "longDescription":"Paleo",
       "searchValue":"403^Paleo",
       "type":"diet",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
     }
-  ]
-}
+]

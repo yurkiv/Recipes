@@ -1,11 +1,11 @@
-{
-  "allergy":[
+[
     {
       "id":"396",
       "shortDescription":"Dairy-Free",
       "longDescription":"Dairy-Free",
       "searchValue":"396^Dairy-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -16,6 +16,7 @@
       "longDescription":"Egg-Free",
       "searchValue":"397^Egg-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -26,6 +27,7 @@
       "longDescription":"Gluten-Free",
       "searchValue":"393^Gluten-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -36,6 +38,7 @@
       "longDescription":"Peanut-Free",
       "searchValue":"394^Peanut-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -46,6 +49,7 @@
       "longDescription":"Seafood-Free",
       "searchValue":"398^Seafood-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -56,6 +60,7 @@
       "longDescription":"Sesame-Free",
       "searchValue":"399^Sesame-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -66,6 +71,7 @@
       "longDescription":"Soy-Free",
       "searchValue":"400^Soy-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -76,6 +82,7 @@
       "longDescription":"Sulfite-Free",
       "searchValue":"401^Sulfite-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -86,6 +93,7 @@
       "longDescription":"Tree Nut-Free",
       "searchValue":"395^Tree Nut-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -96,9 +104,9 @@
       "longDescription":"Wheat-Free",
       "searchValue":"392^Wheat-Free",
       "type":"allergy",
+      "imageId":"",
       "localesAvailableIn":[
         "en-US"
       ]
     }
   ]
-}

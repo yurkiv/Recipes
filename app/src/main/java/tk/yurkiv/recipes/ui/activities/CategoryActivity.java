@@ -1,5 +1,6 @@
 package tk.yurkiv.recipes.ui.activities;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -29,27 +30,40 @@ import tk.yurkiv.recipes.ui.fragments.HomeFragment;
 public class CategoryActivity extends BaseActivity {
 
     private MaterialViewPager mViewPager;
-
     private Toolbar toolbar;
+
+    int activityId;
+    private List<Category> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_category, frameLayout);
-
-        final List<Category> categories=getCategories();
-
-        setTitle("Category");
-        navigationView.getMenu().getItem(1).setChecked(true);
-
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 
+        Intent intent = getIntent();
+        activityId=intent.getIntExtra(DRAWER_ITEM_ID_KEY, 1);
+
+        switch (activityId){
+            case 1:
+                categories=getCategoryRes("course.json");
+                setTitle("Course");
+                break;
+            case 2:
+                categories=getCategoryRes("cuisine.json");
+                setTitle("World Cuisine");
+                break;
+            case 3:
+                categories=getCategoryRes("holiday.json");
+                setTitle("Holiday");
+                break;
+        }
+
+        navigationView.getMenu().getItem(activityId).setChecked(true);
 
         toolbar = mViewPager.getToolbar();
-
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-
             final ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_menu);
@@ -57,13 +71,18 @@ public class CategoryActivity extends BaseActivity {
             }
         }
 
-
-
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-
             @Override
             public Fragment getItem(int position) {
-                return HomeFragment.newInstance(null, null, null, null, categories.get(position).getSearchValue(), null);
+                switch (activityId){
+                    case 1:
+                        return HomeFragment.newInstance(null, null, null, null, categories.get(position).getSearchValue(), null, null);
+                    case 2:
+                        return HomeFragment.newInstance(null, null, null, categories.get(position).getSearchValue(), null, null, null);
+                    case 3:
+                        return HomeFragment.newInstance(null, null, null, null, null, categories.get(position).getSearchValue(), null);
+                }
+                return null;
             }
 
             @Override
@@ -80,7 +99,7 @@ public class CategoryActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
-                Drawable drawable=getResources().getDrawable(categories.get(page).getImageResourceId());
+                Drawable drawable = getResources().getDrawable(categories.get(page).getImageResourceId());
                 drawable.setColorFilter(getResources().getColor(R.color.tint), PorterDuff.Mode.SRC_ATOP);
                 return HeaderDesign.fromColorResAndDrawable(R.color.primary, drawable);
             }
@@ -91,11 +110,11 @@ public class CategoryActivity extends BaseActivity {
 
     }
 
-    public List<Category> getCategories() {
+    public List<Category> getCategoryRes(String res) {
         List<Category> categories=new ArrayList<>();
         try {
             AssetManager assetManager = getAssets();
-            InputStream ims = assetManager.open("course.json");
+            InputStream ims = assetManager.open(res);
 
             Gson gson = new Gson();
             Reader reader = new InputStreamReader(ims);

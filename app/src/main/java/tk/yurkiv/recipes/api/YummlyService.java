@@ -21,6 +21,7 @@ public interface YummlyService {
                            @Query("allowedCuisine[]") String allowedCuisine,
                            @Query("allowedCourse[]") String allowedCourse,
                            @Query("allowedHoliday[]") String allowedHoliday,
+                           @Query("allowedDiet[]") String allowedDiet,
                            Callback<YummlyRecipesListResponse> cb);
 
     @GET("/recipes")

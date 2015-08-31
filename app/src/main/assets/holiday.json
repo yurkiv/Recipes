@@ -1,11 +1,11 @@
-{
-  "holiday":[
+[
     {
       "id":"holiday-christmas",
       "name":"Christmas",
       "type":"holiday",
       "description":"Christmas",
       "searchValue":"holiday^holiday-christmas",
+      "imageId":"christmas",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -16,6 +16,7 @@
       "type":"holiday",
       "description":"Thanksgiving",
       "searchValue":"holiday^holiday-thanksgiving",
+      "imageId":"thanksgiving",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -26,6 +27,7 @@
       "type":"holiday",
       "description":"Summer",
       "searchValue":"holiday^holiday-summer",
+      "imageId":"summer",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -36,6 +38,7 @@
       "type":"holiday",
       "description":"Fall",
       "searchValue":"holiday^holiday-fall",
+      "imageId":"fall",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -46,16 +49,7 @@
       "type":"holiday",
       "description":"New Year",
       "searchValue":"holiday^holiday-new-year",
-      "localesAvailableIn":[
-        "en-US"
-      ]
-    },
-    {
-      "id":"holiday-super-bowl",
-      "name":"Game Day",
-      "type":"holiday",
-      "description":"Game Day",
-      "searchValue":"holiday^holiday-super-bowl",
+      "imageId":"new_year",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -66,6 +60,7 @@
       "type":"holiday",
       "description":"Winter",
       "searchValue":"holiday^holiday-winter",
+      "imageId":"winter",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -76,6 +71,7 @@
       "type":"holiday",
       "description":"Spring",
       "searchValue":"holiday^holiday-spring",
+      "imageId":"spring",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -86,6 +82,7 @@
       "type":"holiday",
       "description":"Halloween",
       "searchValue":"holiday^holiday-halloween",
+      "imageId":"halloween",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -96,26 +93,7 @@
       "type":"holiday",
       "description":"Valentine's Day",
       "searchValue":"holiday^holiday-valentines-day",
-      "localesAvailableIn":[
-        "en-US"
-      ]
-    },
-    {
-      "id":"holiday-hanukkah",
-      "name":"Hanukkah",
-      "type":"holiday",
-      "description":"Hanukkah",
-      "searchValue":"holiday^holiday-hanukkah",
-      "localesAvailableIn":[
-        "en-US"
-      ]
-    },
-    {
-      "id":"holiday-passover",
-      "name":"Passover",
-      "type":"holiday",
-      "description":"Passover",
-      "searchValue":"holiday^holiday-passover",
+      "imageId":"valentines_day",
       "localesAvailableIn":[
         "en-US"
       ]
@@ -126,39 +104,20 @@
       "type":"holiday",
       "description":"Easter",
       "searchValue":"holiday^holiday-easter",
+      "imageId":"easter",
       "localesAvailableIn":[
         "en-US"
       ]
     },
     {
       "id":"holiday-st-patricks-day",
-      "name":"St. Patrick's Day",
+      "name":"St. St. Patrick's Day",
       "type":"holiday",
       "description":"St. Patrick's Day",
       "searchValue":"holiday^holiday-st-patricks-day",
-      "localesAvailableIn":[
-        "en-US"
-      ]
-    },
-    {
-      "id":"holiday-chinese-new-year",
-      "name":"Chinese New Year",
-      "type":"holiday",
-      "description":"Chinese New Year",
-      "searchValue":"holiday^holiday-chinese-new-year",
-      "localesAvailableIn":[
-        "en-US"
-      ]
-    },
-    {
-      "id":"holiday-4th-of-july",
-      "name":"4th of July",
-      "type":"holiday",
-      "description":"4th of July",
-      "searchValue":"holiday^holiday-4th-of-july",
+      "imageId":"patricks_day",
       "localesAvailableIn":[
         "en-US"
       ]
     }
   ]
-}

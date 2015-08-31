@@ -21,4 +21,12 @@
         android:layout_below="@id/toolbar_fragment_holder"
         android:background="@color/window_background">
     </FrameLayout>
+
+    <View
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@drawable/toolbar_dropshadow"
+        android:layout_below="@id/toolbar_fragment_holder"
+        android:visibility="gone" />
 </RelativeLayout>
