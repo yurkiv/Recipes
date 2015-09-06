@@ -46,16 +46,17 @@
             android:id="@+id/favourites"
             android:icon="@drawable/ic_like"
             android:title="Favourites" />
+    </group>
+
+    <group android:id="@+id/grp2">
         <item
             android:id="@+id/shopping_list"
             android:icon="@drawable/ic_shopping"
             android:title="Shopping List" />
-        <item
-            android:icon="@drawable/ic_settings"
-            android:title="Settings" />
-        <item
-            android:icon="@drawable/ic_action_navigation_menu"
-            android:title="Help" />
+
+        <!--<item-->
+            <!--android:icon="@drawable/ic_settings"-->
+            <!--android:title="Settings" />-->
     </group>
 
 </menu>

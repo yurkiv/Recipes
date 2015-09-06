@@ -1,7 +1,6 @@
 package tk.yurkiv.recipes.ui.activities;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,20 +11,13 @@ import android.support.v7.widget.Toolbar;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import tk.yurkiv.recipes.R;
 import tk.yurkiv.recipes.model.Category;
-import tk.yurkiv.recipes.ui.fragments.HomeFragment;
+import tk.yurkiv.recipes.ui.fragments.RecipeListFragment;
+import tk.yurkiv.recipes.util.Utils;
 
 public class CategoryActivity extends BaseActivity {
 
@@ -46,15 +38,15 @@ public class CategoryActivity extends BaseActivity {
 
         switch (activityId){
             case 1:
-                categories=getCategoryRes("course.json");
+                categories=Utils.getCategoryRes(CategoryActivity.this, "course.json");
                 setTitle("Course");
                 break;
             case 2:
-                categories=getCategoryRes("cuisine.json");
+                categories=Utils.getCategoryRes(CategoryActivity.this, "cuisine.json");
                 setTitle("World Cuisine");
                 break;
             case 3:
-                categories=getCategoryRes("holiday.json");
+                categories=Utils.getCategoryRes(CategoryActivity.this, "holiday.json");
                 setTitle("Holiday");
                 break;
         }
@@ -76,11 +68,11 @@ public class CategoryActivity extends BaseActivity {
             public Fragment getItem(int position) {
                 switch (activityId){
                     case 1:
-                        return HomeFragment.newInstance(null, null, null, null, categories.get(position).getSearchValue(), null, null);
+                        return RecipeListFragment.newInstance(null, null, null, null, categories.get(position).getSearchValue(), null, null);
                     case 2:
-                        return HomeFragment.newInstance(null, null, null, categories.get(position).getSearchValue(), null, null, null);
+                        return RecipeListFragment.newInstance(null, null, null, categories.get(position).getSearchValue(), null, null, null);
                     case 3:
-                        return HomeFragment.newInstance(null, null, null, null, null, categories.get(position).getSearchValue(), null);
+                        return RecipeListFragment.newInstance(null, null, null, null, null, categories.get(position).getSearchValue(), null);
                 }
                 return null;
             }
@@ -108,28 +100,5 @@ public class CategoryActivity extends BaseActivity {
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
-    }
-
-    public List<Category> getCategoryRes(String res) {
-        List<Category> categories=new ArrayList<>();
-        try {
-            AssetManager assetManager = getAssets();
-            InputStream ims = assetManager.open(res);
-
-            Gson gson = new Gson();
-            Reader reader = new InputStreamReader(ims);
-            Type listType = new TypeToken<List<Category>>(){}.getType();
-
-            categories= (List<Category>) gson.fromJson(reader, listType);
-
-            String packageName = getPackageName();
-            for(Category category : categories){
-                category.setImageResourceId(getResources().getIdentifier(category.getImageId(), "drawable", packageName));
-            }
-
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-        return categories;
     }
 }

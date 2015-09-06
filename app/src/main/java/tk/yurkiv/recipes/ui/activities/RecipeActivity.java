@@ -136,8 +136,8 @@ public class RecipeActivity extends AppCompatActivity {
         cvFlavors.setScaleX(0);
         cvDirections.setScaleY(0);
         cvDirections.setScaleX(0);
-        fab.setScaleY(0);
-        fab.setScaleX(0);
+//        fab.setScaleY(0);
+//        fab.setScaleX(0);
 
         yummlyService=YummlyApi.getService();
         yummlyService.getRecipe(recipeId, new Callback<YummlyRecipe>() {
@@ -240,7 +240,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     private void animateCards(){
         ivBackdrop.animate().alpha(1f).setDuration(500).setInterpolator(INTERPOLATOR);
-        fab.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR).start();
+//        fab.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR).start();
         cvIntro.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(300).setInterpolator(INTERPOLATOR).start();
         cvIngredients.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR)
                 .setListener(new AnimatorListenerAdapter() {

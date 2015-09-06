@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import tk.yurkiv.recipes.R;
@@ -42,7 +40,7 @@ public class FragmentHolderActivity extends BaseActivity {
 
         switch (fragmentIndex) {
             case 0:
-                displayFragment(HomeFragment.newInstance(null, null, null, null, null, null, null));
+                displayFragment(new HomeFragment());
                 setTitle("Home");
                 toolbarShadow.setVisibility(View.VISIBLE);
                 break;
@@ -54,9 +52,11 @@ public class FragmentHolderActivity extends BaseActivity {
                 break;
             case 6:
                 displayFragment(new FavouritesFragment());
+                toolbarShadow.setVisibility(View.VISIBLE);
                 break;
             case 7:
                 displayFragment(new ShoppingListFragment());
+                toolbarShadow.setVisibility(View.VISIBLE);
                 break;
             case 8:
 
@@ -74,25 +74,4 @@ public class FragmentHolderActivity extends BaseActivity {
         fragmentTransaction.commit();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_fragment_holder, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -4,6 +4,7 @@ package tk.yurkiv.recipes.ui.fragments;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,11 +26,10 @@ import tk.yurkiv.recipes.api.YummlyApi;
 import tk.yurkiv.recipes.api.YummlyService;
 import tk.yurkiv.recipes.model.YummlyRecipe;
 import tk.yurkiv.recipes.ui.adapters.FavouritesRecipesAdapter;
-import tk.yurkiv.recipes.util.Utils;
 
 public class FavouritesFragment extends Fragment {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String TAG = RecipeListFragment.class.getSimpleName();
 
     @InjectView(R.id.rvFavouritesRecipes) protected RecyclerView rvFavouritesRecipes;
 
@@ -55,7 +55,7 @@ public class FavouritesFragment extends Fragment {
         getActivity().setTitle("Favourites");
 
         rvFavouritesRecipes.setHasFixedSize(true);
-        rvFavouritesRecipes.setLayoutManager(Utils.getGridLayoutManager(getActivity()));
+        rvFavouritesRecipes.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvFavouritesRecipes.setAdapter(favouritesRecipesAdapter);
 
         return rootView;

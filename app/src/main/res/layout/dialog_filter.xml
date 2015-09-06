@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Course"
+            android:layout_weight="1" />
+
+        <org.angmarch.views.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nsCourse"
+            android:layout_weight="1">
+
+        </org.angmarch.views.NiceSpinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="World Cuisine"
+            android:layout_weight="1" />
+
+        <org.angmarch.views.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nsCuisine"
+            android:layout_weight="1">
+
+        </org.angmarch.views.NiceSpinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Holiday"
+            android:layout_weight="1" />
+
+        <org.angmarch.views.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nsHoliday"
+            android:layout_weight="1">
+
+        </org.angmarch.views.NiceSpinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diet"
+            android:layout_weight="1" />
+
+        <org.angmarch.views.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nsDiet"
+            android:layout_weight="1">
+
+        </org.angmarch.views.NiceSpinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Allergy"
+            android:layout_weight="1" />
+
+        <org.angmarch.views.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nsAllergy"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTotalTime"/>
+
+        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dsbTotalTime"
+            app:dsb_min="1"
+            app:dsb_max="12"
+            app:dsb_value="12"
+            app:dsb_progressColor="@color/primary"
+            app:dsb_indicatorColor="@color/primary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvEnergy"/>
+
+        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dsbEnergy"
+            app:dsb_min="1"
+            app:dsb_max="10"
+            app:dsb_value="10"
+            app:dsb_progressColor="@color/primary"
+            app:dsb_indicatorColor="@color/primary"/>
+
+    </LinearLayout>
+
+</LinearLayout>

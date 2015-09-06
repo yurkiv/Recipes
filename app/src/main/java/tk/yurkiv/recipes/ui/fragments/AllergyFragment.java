@@ -47,7 +47,7 @@ public class AllergyFragment extends Fragment {
 
             @Override
             public Fragment getItem(int position) {
-                return HomeFragment.newInstance(null, null, categories.get(position).getSearchValue(), null, null, null, null);
+                return RecipeListFragment.newInstance(null, null, categories.get(position).getSearchValue(), null, null, null, null);
             }
 
             @Override

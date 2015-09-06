@@ -16,49 +16,14 @@ public interface YummlyService {
     public void getRecipes(@Query("q") String q,
                            @Query("maxResult") int maxResult,
                            @Query("start") int start,
-                           @Query("allowedIngredient[]") String allowedIngredient,
                            @Query("allowedAllergy[]") String allowedAllergy,
                            @Query("allowedCuisine[]") String allowedCuisine,
                            @Query("allowedCourse[]") String allowedCourse,
                            @Query("allowedHoliday[]") String allowedHoliday,
                            @Query("allowedDiet[]") String allowedDiet,
+                           @Query("maxTotalTimeInSeconds") String maxTotalTimeInSeconds,
+                           @Query("nutrition.ENERC_KCAL.max") String maxEnergy,
                            Callback<YummlyRecipesListResponse> cb);
-
-    @GET("/recipes")
-    public void getRecipesByQuery(@Query("q") String q,
-                                  @Query("maxResult") int maxResult,
-                                  @Query("start") int start,
-                                   Callback<YummlyRecipesListResponse> cb);
-
-//    @GET("/recipes")
-//    public void getRecipesByIngredient(@Query("allowedIngredient[]") String allowedIngredient,
-//                                       @Query("maxResult") String maxResult,
-//                                       @Query("start") String start,
-//                                       Callback<YummlyRecipesListResponse> cb);
-
-    @GET("/recipes")
-    public void getRecipesByAllergy(@Query("allowedAllergy[]") String allowedAllergy,
-                                    @Query("maxResult") int maxResult,
-                                    @Query("start") int start,
-                                    Callback<YummlyRecipesListResponse> cb);
-
-    @GET("/recipes")
-    public void getRecipesByCuisine(@Query("allowedCuisine[]") String allowedCuisine,
-                                    @Query("maxResult") int maxResult,
-                                    @Query("start") int start,
-                                    Callback<YummlyRecipesListResponse> cb);
-
-    @GET("/recipes")
-    public void getRecipesByCourse(@Query("allowedCourse[]") String allowedCourse,
-                                   @Query("maxResult") int maxResult,
-                                   @Query("start") int start,
-                                   Callback<YummlyRecipesListResponse> cb);
-
-    @GET("/recipes")
-    public void getRecipesByHoliday(@Query("allowedHoliday[]") String allowedHoliday,
-                                    @Query("maxResult") int maxResult,
-                                    @Query("start") int start,
-                                    Callback<YummlyRecipesListResponse> cb);
 
     @GET("/recipe/{id}")
     public void getRecipe(@Path("id") String id,

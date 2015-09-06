@@ -47,7 +47,7 @@ public class DietFragment extends Fragment {
 
             @Override
             public Fragment getItem(int position) {
-                return HomeFragment.newInstance(null, null, null, null, null, null, categories.get(position).getSearchValue());
+                return RecipeListFragment.newInstance(null, null, null, null, null, null, categories.get(position).getSearchValue());
             }
 
             @Override

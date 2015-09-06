@@ -3,16 +3,22 @@ package tk.yurkiv.recipes.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.github.leonardoxh.fakesearchview.FakeSearchView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -29,16 +35,17 @@ import tk.yurkiv.recipes.ui.adapters.RecipesAdapter;
 import tk.yurkiv.recipes.util.EndlessRecyclerOnScrollListener;
 import tk.yurkiv.recipes.util.Utils;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements FilterFragment.FilterCallback, FakeSearchView.OnSearchListener {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
-    private static final String QUERY_KEY = "query_key";
-    private static final String INGREDIENT_KEY = "ingredient_key";
-    private static final String ALLERGY_KEY = "allergy_key";
-    private static final String CUISINE_KEY = "cuisine_key";
-    private static final String COURSE_KEY = "course_key";
-    private static final String HOLIDAY_KEY = "holiday_key";
-    private static final String DIET_KEY = "diet_key";
+
+    public static final String ALLERGY_KEY = "allergy_key";
+    public static final String CUISINE_KEY = "cuisine_key";
+    public static final String COURSE_KEY = "course_key";
+    public static final String HOLIDAY_KEY = "holiday_key";
+    public static final String DIET_KEY = "diet_key";
+    public static final String MAX_TOTAL_TIME = "max_total_time";
+    public static final String MAX_ENERGY = "max_energy";
 
     @InjectView(R.id.rvRecipes) protected RecyclerView rvRecipes;
 
@@ -46,51 +53,26 @@ public class HomeFragment extends Fragment {
     private List<Match> matches;
     private YummlyService yummlyService;
 
-    private String q;
-    private String allowedIngredient;
-    private String allowedAllergy;
-    private String allowedCuisine;
-    private String allowedCourse;
-    private String allowedHoliday;
-    private String allowedDiet;
+    private String q=null;
+    private String allowedAllergy=null;
+    private String allowedCuisine=null;
+    private String allowedCourse=null;
+    private String allowedHoliday=null;
+    private String allowedDiet=null;
+    private String maxTotalTime=null;
+    private String maxEnergy=null;
 
-    public static HomeFragment newInstance(String q,
-                                           String allowedIngredient,
-                                           String allowedAllergy,
-                                           String allowedCuisine,
-                                           String allowedCourse,
-                                           String allowedHoliday,
-                                           String allowedDiet) {
-        HomeFragment homeFragment=new HomeFragment();
-        Bundle bundle=new Bundle();
-        bundle.putString(QUERY_KEY, q);
-        bundle.putString(INGREDIENT_KEY, allowedIngredient);
-        bundle.putString(ALLERGY_KEY, allowedAllergy);
-        bundle.putString(CUISINE_KEY, allowedCuisine);
-        bundle.putString(COURSE_KEY, allowedCourse);
-        bundle.putString(HOLIDAY_KEY, allowedHoliday);
-        bundle.putString(DIET_KEY, allowedDiet);
-        homeFragment.setArguments(bundle);
-        return homeFragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        q=getArguments().getString(QUERY_KEY, null);
-        allowedIngredient=getArguments().getString(INGREDIENT_KEY, null);
-        allowedAllergy=getArguments().getString(ALLERGY_KEY, null);
-        allowedCuisine=getArguments().getString(CUISINE_KEY, null);
-        allowedCourse=getArguments().getString(COURSE_KEY, null);
-        allowedHoliday=getArguments().getString(HOLIDAY_KEY, null);
-        allowedDiet=getArguments().getString(DIET_KEY, null);
+        setHasOptionsMenu(true);
 
         Log.d(TAG, toString());
 
         yummlyService= YummlyApi.getService();
         matches=new ArrayList<>();
-        getFirstMatches();
+        getMatches(0);
         recipesAdapter=new RecyclerViewMaterialAdapter(new RecipesAdapter(getActivity(), matches));
     }
 
@@ -107,20 +89,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onLoadMore(int currentPage) {
                 Log.d(TAG, "currentPage=" + currentPage);
-                yummlyService.getRecipes(q, 20, 20*currentPage, allowedIngredient, allowedAllergy, allowedCuisine,
-                        allowedCourse, allowedHoliday, allowedDiet, new Callback<YummlyRecipesListResponse>() {
-                            @Override
-                            public void success(YummlyRecipesListResponse yummlyRecipesListResponse, Response response) {
-                                matches.addAll(yummlyRecipesListResponse.getMatches());
-                                recipesAdapter.notifyDataSetChanged();
-                                Log.d(TAG, "matches.size: " + matches.size());
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                Log.d(TAG, "Failed call: " + error.toString());
-                            }
-                        });
+                getMatches(currentPage);
             }
         };
 
@@ -133,9 +102,56 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private void getFirstMatches(){
-        yummlyService.getRecipes(q, 20, 0, allowedIngredient, allowedAllergy, allowedCuisine,
-                allowedCourse, allowedHoliday, allowedDiet, new Callback<YummlyRecipesListResponse>() {
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_home_fragment, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        FakeSearchView fakeSearchView = (FakeSearchView) MenuItemCompat.getActionView(menuItem);
+        fakeSearchView.setOnSearchListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                FilterFragment filterFragment=new FilterFragment();
+                filterFragment.setTargetFragment(this, 0);
+                filterFragment.show(getActivity().getSupportFragmentManager(), "FOLDER_SELECTOR");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public String toString() {
+        return "RecipeListFragment{" +
+                "q='" + q + '\'' +
+                ", allowedAllergy='" + allowedAllergy + '\'' +
+                ", allowedCuisine='" + allowedCuisine + '\'' +
+                ", allowedCourse='" + allowedCourse + '\'' +
+                ", allowedHoliday='" + allowedHoliday + '\'' +
+                '}';
+    }
+
+    @Override
+    public void onFilter(HashMap<String, String> filters) {
+        Log.d(TAG, filters.toString());
+
+        allowedAllergy=filters.get(ALLERGY_KEY);
+        allowedCuisine=filters.get(CUISINE_KEY);
+        allowedCourse=filters.get(COURSE_KEY);
+        allowedHoliday=filters.get(HOLIDAY_KEY);
+        allowedDiet=filters.get(DIET_KEY);
+        maxTotalTime=filters.get(MAX_TOTAL_TIME);
+        maxEnergy=filters.get(MAX_ENERGY);
+
+        matches.clear();
+        getMatches(0);
+    }
+
+    private void getMatches(int page){
+        yummlyService.getRecipes(q, 20, 20*page, allowedAllergy, allowedCuisine,
+                allowedCourse, allowedHoliday, allowedDiet, maxTotalTime, maxEnergy, new Callback<YummlyRecipesListResponse>() {
                     @Override
                     public void success(YummlyRecipesListResponse yummlyRecipesListResponse, Response response) {
                         matches.addAll(yummlyRecipesListResponse.getMatches());
@@ -149,16 +165,15 @@ public class HomeFragment extends Fragment {
                 });
     }
 
+    @Override
+    public void onSearch(FakeSearchView fakeSearchView, CharSequence charSequence) {
 
-    public String toString() {
-        return "HomeFragment{" +
-                "q='" + q + '\'' +
-                ", allowedIngredient='" + allowedIngredient + '\'' +
-                ", allowedAllergy='" + allowedAllergy + '\'' +
-                ", allowedCuisine='" + allowedCuisine + '\'' +
-                ", allowedCourse='" + allowedCourse + '\'' +
-                ", allowedHoliday='" + allowedHoliday + '\'' +
-                '}';
     }
 
+    @Override
+    public void onSearchHint(FakeSearchView fakeSearchView, CharSequence charSequence) {
+        q = charSequence.toString();
+        matches.clear();
+        getMatches(0);
+    }
 }

@@ -1,10 +1,23 @@
 package tk.yurkiv.recipes.util;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.support.v7.widget.GridLayoutManager;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import tk.yurkiv.recipes.model.Category;
 
 /**
  * Created by yurkiv on 17.08.2015.
@@ -70,5 +83,28 @@ public class Utils {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    public static List<Category> getCategoryRes(Context context, String res) {
+        List<Category> categories=new ArrayList<>();
+        try {
+            AssetManager assetManager = context.getAssets();
+            InputStream ims = assetManager.open(res);
+
+            Gson gson = new Gson();
+            Reader reader = new InputStreamReader(ims);
+            Type listType = new TypeToken<List<Category>>(){}.getType();
+
+            categories= (List<Category>) gson.fromJson(reader, listType);
+
+            String packageName = context.getPackageName();
+            for(Category category : categories){
+                category.setImageResourceId(context.getResources().getIdentifier(category.getImageId(), "drawable", packageName));
+            }
+
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
 }
