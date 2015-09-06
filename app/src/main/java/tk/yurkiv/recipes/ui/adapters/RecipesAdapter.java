@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joooonho.SelectableRoundedImageView;
@@ -26,6 +29,8 @@ import tk.yurkiv.recipes.ui.activities.RecipeActivity;
  */
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
 
+    private static final Interpolator INTERPOLATOR = new DecelerateInterpolator();
+
     private Context context;
     private List<Match> matches;
 
@@ -42,7 +47,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.cvRoot.setVisibility(View.GONE);
+//        holder.cardContainer.setVisibility(View.GONE);
+        holder.cardContainer.setAlpha(0f);
         Match match=matches.get(position);
         match.setLikes();
         holder.tvRecipeNameItem.setText(match.getRecipeName());
@@ -52,7 +58,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         Picasso.with(context).load(match.getSmallImageUrls().get(0) + "0").into(holder.ivRecipeItem, new Callback() {
             @Override
             public void onSuccess() {
-                holder.cvRoot.setVisibility(View.VISIBLE);
+//                holder.cardContainer.setVisibility(View.VISIBLE);
+                holder.cardContainer.animate().alpha(1f).setDuration(300).setInterpolator(INTERPOLATOR).start();
+
             }
 
             @Override
@@ -73,6 +81,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
         private Context context;
         @InjectView(R.id.cvRoot) protected CardView cvRoot;
+        @InjectView(R.id.cardContainer) protected RelativeLayout cardContainer;
         @InjectView(R.id.tvRecipeNameItem) protected TextView tvRecipeNameItem;
         @InjectView(R.id.tvRatingItem) protected TextView tvRatingItem;
         @InjectView(R.id.tvTimeItem) protected TextView tvTimeItem;

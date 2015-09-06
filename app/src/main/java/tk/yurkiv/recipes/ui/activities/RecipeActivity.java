@@ -184,7 +184,7 @@ public class RecipeActivity extends AppCompatActivity {
                                 finish();
                             }
                         })
-                        .show(); // Do not forget to show!
+                        .show();
             }
         });
 
@@ -225,6 +225,11 @@ public class RecipeActivity extends AppCompatActivity {
                 editor.putStringSet("shopping_list", shoppingList);
                 editor.commit();
                 Log.d(TAG, "shoppingList: " + shoppingList.toString());
+
+                Snackbar.make(findViewById(R.id.main_content),
+                        shoppingList.size()+" items added to shopping list.",
+                        Snackbar.LENGTH_LONG)
+                        .show();
 
             }
         });

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Recipes.iml" filepath="$PROJECT_DIR$/Recipes.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nice-spinner/nice-spinner.iml" filepath="$PROJECT_DIR$/nice-spinner/nice-spinner.iml" />
     </modules>
   </component>
 </project>
