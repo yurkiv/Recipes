@@ -16,4 +16,11 @@
     <string name="title_activity_fragment_holder">FragmentHolderActivity</string>
     <string name="action_filter">Filter</string>
     <string name="find">Search</string>
+    <string name="about">About</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="about_body"><![CDATA[
+        Recipes, a project designed by <b>Misha Yurkiv</b>.<br/>
+        <a href=\'https://github.com/yurkiv/Recipes\'>GitHub Page</a>
+    ]]></string>
 </resources>

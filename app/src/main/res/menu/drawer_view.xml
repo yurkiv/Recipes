@@ -54,9 +54,10 @@
             android:icon="@drawable/ic_shopping"
             android:title="Shopping List" />
 
-        <!--<item-->
-            <!--android:icon="@drawable/ic_settings"-->
-            <!--android:title="Settings" />-->
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_info"
+            android:title="About" />
     </group>
 
 </menu>
