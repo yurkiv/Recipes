@@ -54,6 +54,8 @@ public class RecipeActivity extends AppCompatActivity {
     private static final String TAG = "RecipeActivity";
     public static final String RECIPE_ID_KEY="recipe_key";
     public static final String RECIPE_RATING_KEY="recipe_rating_key";
+    public static final String FAVORITE_RECIPE_KEY="favorite_recipe_key";
+    public static final String SHOPPING_LIST_KEY="shopping_list_key";
     private static final Interpolator INTERPOLATOR = new DecelerateInterpolator();
 
 
@@ -91,7 +93,6 @@ public class RecipeActivity extends AppCompatActivity {
     private YummlyService yummlyService;
 
     private IngredientsAdapter ingredientsAdapter;
-//    private NutritionAdapter nutritionAdapter;
     private String urlRecipeName;
     private String urlRecipeDirections;
 
@@ -110,7 +111,7 @@ public class RecipeActivity extends AppCompatActivity {
         final String recipeRating = intent.getStringExtra(RECIPE_RATING_KEY);
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-        favRecipesIds=settings.getStringSet("fav", new HashSet<String>());
+        favRecipesIds=settings.getStringSet(FAVORITE_RECIPE_KEY, new HashSet<String>());
         if (favRecipesIds.contains(recipeId)){
             fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
             isFavorite=true;
@@ -127,7 +128,6 @@ public class RecipeActivity extends AppCompatActivity {
         setTitle("");
 
         progressBar.setIndeterminateDrawable(new IndeterminateProgressDrawable(this));
-
         ivBackdrop.setAlpha(0f);
         cvIntro.setScaleY(0);
         cvIntro.setScaleX(0);
@@ -138,9 +138,6 @@ public class RecipeActivity extends AppCompatActivity {
         cvDirections.setScaleY(0);
         cvDirections.setScaleX(0);
 
-//        fab.setScaleY(0);
-//        fab.setScaleX(0);
-
         yummlyService=YummlyApi.getService();
         yummlyService.getRecipe(recipeId, new Callback<YummlyRecipe>() {
             @Override
@@ -149,9 +146,9 @@ public class RecipeActivity extends AppCompatActivity {
                 Picasso.with(RecipeActivity.this).load(recipe.getImages().get(0).getHostedSmallUrl() + "0").into(ivBackdrop);
                 tvRating.setText(recipeRating);
                 tvTime.setText(recipe.getTotalTime());
-                tvServ.setText(String.valueOf(recipe.getNumberOfServings()) + " servings");
-                tvIngCount.setText(String.valueOf(recipe.getIngredientLines().size()) + " count");
-                tvKcal.setText(getEnergy(recipe.getNutritionEstimates()) + " kcal");
+                tvServ.setText(String.valueOf(recipe.getNumberOfServings()) + getString(R.string.servings));
+                tvIngCount.setText(String.valueOf(recipe.getIngredientLines().size()) + getString(R.string.count));
+                tvKcal.setText(getEnergy(recipe.getNutritionEstimates()) + getString(R.string.kcal));
 
                 if (recipe.getFlavors().getMeaty() != 0) {
                     pbSalty.setProgress(recipe.getFlavors().getSalty());
@@ -167,7 +164,7 @@ public class RecipeActivity extends AppCompatActivity {
                 ingredientsAdapter = new IngredientsAdapter(RecipeActivity.this, getIngredients(recipe.getIngredientLines()));
                 lvIngredients.setAdapter(ingredientsAdapter);
 
-                btnDirections.setText("Read full directions on " + recipe.getSource().getSourceDisplayName());
+                btnDirections.setText(getString(R.string.read_full) + recipe.getSource().getSourceDisplayName());
                 urlRecipeDirections=recipe.getSource().getSourceRecipeUrl();
                 urlRecipeName=recipe.getName();
 
@@ -177,10 +174,11 @@ public class RecipeActivity extends AppCompatActivity {
 
             @Override
             public void failure(RetrofitError error) {
+                Log.d(TAG, "Failed call: " + error.toString());
                 Snackbar.make(findViewById(R.id.main_content),
-                        "No Connection",
+                        R.string.no_connection,
                         Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Close", new View.OnClickListener() {
+                        .setAction(R.string.close, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 finish();
@@ -203,7 +201,7 @@ public class RecipeActivity extends AppCompatActivity {
                     isFavorite = true;
                 }
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putStringSet("fav", favRecipesIds);
+                editor.putStringSet(FAVORITE_RECIPE_KEY, favRecipesIds);
                 editor.commit();
                 Log.d(TAG, "favRecipesIds: " + favRecipesIds.toString());
             }
@@ -219,12 +217,12 @@ public class RecipeActivity extends AppCompatActivity {
         btnAddIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Set<String> shoppingList=settings.getStringSet("shopping_list", new HashSet<String>());
+                Set<String> shoppingList=settings.getStringSet(SHOPPING_LIST_KEY, new HashSet<String>());
                 shoppingList.addAll(ingredientsAdapter.getAllChecked());
                 Log.d(TAG, "getAllChecked: " + ingredientsAdapter.getAllChecked());
 
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putStringSet("shopping_list", shoppingList);
+                editor.putStringSet(SHOPPING_LIST_KEY, shoppingList);
                 editor.commit();
                 Log.d(TAG, "shoppingList: " + shoppingList.toString());
 
@@ -247,7 +245,6 @@ public class RecipeActivity extends AppCompatActivity {
 
     private void animateCards(){
         ivBackdrop.animate().alpha(1f).setDuration(500).setInterpolator(INTERPOLATOR);
-//        fab.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR).start();
         cvIntro.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(300).setInterpolator(INTERPOLATOR).start();
         cvIngredients.animate().scaleY(1).scaleX(1).setDuration(300).setStartDelay(400).setInterpolator(INTERPOLATOR)
                 .setListener(new AnimatorListenerAdapter() {

@@ -24,7 +24,7 @@ public class YummlyApi {
     private static final RestAdapter REST_ADAPTER = new RestAdapter.Builder()
             .setEndpoint(API_URL)
             .setRequestInterceptor(requestInterceptor)
-            .setLogLevel(RestAdapter.LogLevel.FULL)
+            .setLogLevel(RestAdapter.LogLevel.BASIC)
             .build();
 
     private static final YummlyService SERVICE = REST_ADAPTER.create(YummlyService.class);

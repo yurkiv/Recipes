@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import tk.yurkiv.recipes.R;
 import tk.yurkiv.recipes.model.Ingredient;
+import tk.yurkiv.recipes.ui.activities.RecipeActivity;
 import tk.yurkiv.recipes.ui.adapters.IngredientsAdapter;
 
 public class ShoppingListFragment extends Fragment {
@@ -35,7 +36,7 @@ public class ShoppingListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        Set<String> shoppingList=settings.getStringSet("shopping_list", new HashSet<String>());
+        Set<String> shoppingList=settings.getStringSet(RecipeActivity.SHOPPING_LIST_KEY, new HashSet<String>());
         ingredientsAdapter = new IngredientsAdapter(getActivity(), getIngredients(shoppingList));
     }
 
@@ -43,7 +44,7 @@ public class ShoppingListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         ButterKnife.inject(this, rootView);
-        getActivity().setTitle("Shopping List");
+        getActivity().setTitle(getString(R.string.shopping_list));
 
         lvShopping.setAdapter(ingredientsAdapter);
 

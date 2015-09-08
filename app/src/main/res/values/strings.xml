@@ -1,12 +1,6 @@
 <resources>
     <string name="app_name">Recipes</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_recipe">RecipeActivity</string>
     <string name="recipe">Recipe</string>
     <string name="action_share">Share</string>
     <string name="action_open_web_link">Open web link</string>
@@ -23,4 +17,40 @@
         Recipes, a project designed by <b>Misha Yurkiv</b>.<br/>
         <a href=\'https://github.com/yurkiv/Recipes\'>GitHub Page</a>
     ]]></string>
+    <string name="os_version">"OS version: "</string>
+    <string name="dev_email">jurkiw.misha@gmail.com</string>
+    <string name="recipes_version">"Recipes, version "</string>
+    <string name="home">Home</string>
+    <string name="course">Course</string>
+    <string name="world_cuisine">World Cuisine</string>
+    <string name="holiday">Holiday</string>
+    <string name="diet">Diet</string>
+    <string name="allergy">Allergy</string>
+    <string name="favorites">Favorites</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="servings">" servings"</string>
+    <string name="count">" count"</string>
+    <string name="kcal">" kcal"</string>
+    <string name="read_full">"Read full directions on "</string>
+    <string name="no_connection">No Connection</string>
+    <string name="close">Close</string>
+    <string name="intro">Intro</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="clear">Clear</string>
+    <string name="add_to_shopping_list">Add to shopping list</string>
+    <string name="tastes">Tastes</string>
+    <string name="salty">SALTY</string>
+    <string name="savory">SAVORY</string>
+    <string name="sour">SOUR</string>
+    <string name="bitter">BITTER</string>
+    <string name="sweet">SWEET</string>
+    <string name="spicy">SPICY</string>
+    <string name="empty_favorites">Empty favorites</string>
+    <string name="empty_favorites_text">You haven\'t saved any favorites. In order to add a recipe to the favorites, please press the \"heart\" button in the recipe page.</string>
+    <string name="no_connection_text">We could not establish a connection with our servers. Please try again when you are connected to the internet.</string>
+    <string name="try_again">Try Again</string>
+    <string name="total_time"><![CDATA[Total Time: <]]></string>
+    <string name="calories"><![CDATA[Calories: <]]></string>
+    <string name="hrs">" hrs"</string>
+    <string name="all">All</string>
 </resources>

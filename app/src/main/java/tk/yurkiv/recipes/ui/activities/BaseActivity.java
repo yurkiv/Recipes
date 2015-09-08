@@ -11,7 +11,6 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -60,43 +59,27 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         menuItem.setChecked(true);
         switch (menuItem.getItemId()){
             case R.id.home:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(FragmentHolderActivity.class, 0);
                 return true;
             case R.id.course:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(CategoryActivity.class, 1);
                 return true;
             case R.id.cuisine:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(CategoryActivity.class, 2);
                 return true;
             case R.id.holiday:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(CategoryActivity.class, 3);
                 return true;
             case R.id.diets:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(FragmentHolderActivity.class, 4);
                 return true;
             case R.id.allergy:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(FragmentHolderActivity.class, 5);
                 return true;
             case R.id.favourites:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(FragmentHolderActivity.class, 6);
                 return true;
             case R.id.shopping_list:
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
                 displayActivity(FragmentHolderActivity.class, 7);
                 return true;
             case R.id.about:
@@ -108,6 +91,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void displayActivity(Class aClass, int drawer_item_index) {
+        drawerLayout.closeDrawers();
         Intent intent = new Intent(this, aClass);
         intent.putExtra(DRAWER_ITEM_ID_KEY, drawer_item_index);
         startActivity(intent);
@@ -126,7 +110,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         String deviceInfo =
-                                "OS version: " + System.getProperty("os.version") +
+                                getString(R.string.os_version) + System.getProperty("os.version") +
                                         "\n API Level: " + Build.VERSION.SDK +
                                         "\n Device: " + Build.DEVICE +
                                         "\n Model: " + Build.MODEL +
@@ -134,8 +118,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
                         Intent feedbackIntent = new Intent(Intent.ACTION_SEND);
                         feedbackIntent.setType("message/rfc822");
-                        feedbackIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"jurkiw.misha@gmail.com"});
-                        feedbackIntent.putExtra(Intent.EXTRA_SUBJECT, "Revipes, version " + BuildConfig.VERSION_NAME);
+                        feedbackIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.dev_email)});
+                        feedbackIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.recipes_version) + BuildConfig.VERSION_NAME);
                         feedbackIntent.putExtra(Intent.EXTRA_TEXT, deviceInfo);
                         startActivity(feedbackIntent);
                     }

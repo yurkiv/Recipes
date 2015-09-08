@@ -11,7 +11,7 @@ import android.view.View;
 import tk.yurkiv.recipes.R;
 import tk.yurkiv.recipes.ui.fragments.AllergyFragment;
 import tk.yurkiv.recipes.ui.fragments.DietFragment;
-import tk.yurkiv.recipes.ui.fragments.FavouritesFragment;
+import tk.yurkiv.recipes.ui.fragments.FavoritesFragment;
 import tk.yurkiv.recipes.ui.fragments.HomeFragment;
 import tk.yurkiv.recipes.ui.fragments.ShoppingListFragment;
 
@@ -41,7 +41,6 @@ public class FragmentHolderActivity extends BaseActivity {
         switch (fragmentIndex) {
             case 0:
                 displayFragment(new HomeFragment());
-                setTitle("Home");
                 toolbarShadow.setVisibility(View.VISIBLE);
                 break;
             case 4:
@@ -51,18 +50,12 @@ public class FragmentHolderActivity extends BaseActivity {
                 displayFragment(new AllergyFragment());
                 break;
             case 6:
-                displayFragment(new FavouritesFragment());
+                displayFragment(new FavoritesFragment());
                 toolbarShadow.setVisibility(View.VISIBLE);
                 break;
             case 7:
                 displayFragment(new ShoppingListFragment());
                 toolbarShadow.setVisibility(View.VISIBLE);
-                break;
-            case 8:
-
-                break;
-            case 9:
-
                 break;
         }
 

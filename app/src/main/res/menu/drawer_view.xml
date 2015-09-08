@@ -21,43 +21,43 @@
             android:id="@+id/home"
             android:icon="@drawable/ic_home"
             android:checked="true"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/course"
             android:icon="@drawable/ic_food"
-            android:title="Course" />
+            android:title="@string/course" />
         <item
             android:id="@+id/cuisine"
             android:icon="@drawable/ic_earth"
-            android:title="World Cuisine" />
+            android:title="@string/world_cuisine" />
         <item
             android:id="@+id/holiday"
             android:icon="@drawable/ic_cake"
-            android:title="Holiday" />
+            android:title="@string/holiday" />
         <item
             android:id="@+id/diets"
             android:icon="@drawable/ic_food_apple_white_24dp"
-            android:title="Diets" />
+            android:title="@string/diet" />
         <item
             android:id="@+id/allergy"
             android:icon="@drawable/ic_remove_circle"
-            android:title="Allergy" />
+            android:title="@string/allergy" />
         <item
             android:id="@+id/favourites"
             android:icon="@drawable/ic_like"
-            android:title="Favourites" />
+            android:title="@string/favorites" />
     </group>
 
     <group android:id="@+id/grp2">
         <item
             android:id="@+id/shopping_list"
             android:icon="@drawable/ic_shopping"
-            android:title="Shopping List" />
+            android:title="@string/shopping_list" />
 
         <item
             android:id="@+id/about"
             android:icon="@drawable/ic_info"
-            android:title="About" />
+            android:title="@string/about" />
     </group>
 
 </menu>

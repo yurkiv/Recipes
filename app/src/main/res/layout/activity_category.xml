@@ -2,7 +2,6 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragmentaskGRP1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/ViewPagerTheme"
@@ -24,7 +23,6 @@
         app:viewpager_displayToolbarWhenSwipe="true"
         app:viewpager_transparentToolbar="true"
         app:viewpager_animatedHeaderImage="true"
-
 
         />
 

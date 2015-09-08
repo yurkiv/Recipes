@@ -19,6 +19,6 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="CARDVIEW BUTTON"
-        android:textColor="#ffffff"/>
+        android:textColor="@android:color/white"/>
 
 </android.support.v7.widget.CardView>

@@ -25,12 +25,12 @@ import tk.yurkiv.recipes.ui.activities.RecipeActivity;
 /**
  * Created by yurkiv on 17.08.2015.
  */
-public class FavouritesRecipesAdapter extends RecyclerView.Adapter<FavouritesRecipesAdapter.ViewHolder> {
+public class FavoritesRecipesAdapter extends RecyclerView.Adapter<FavoritesRecipesAdapter.ViewHolder> {
 
     private Context context;
     private List<YummlyRecipe> recipes;
 
-    public FavouritesRecipesAdapter(Context context, List<YummlyRecipe> recipes) {
+    public FavoritesRecipesAdapter(Context context, List<YummlyRecipe> recipes) {
         this.context = context;
         this.recipes = recipes;
     }

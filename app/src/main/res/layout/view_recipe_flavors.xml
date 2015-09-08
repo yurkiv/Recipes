@@ -14,16 +14,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tastes"
+            android:text="@string/tastes"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:id="@+id/textView"
             android:layout_margin="16dp" />
 
-        <View
-            android:id="@+id/divider_description_child"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />
+        <include layout="@layout/divider"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -40,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SALTY"/>
+                    android:text="@string/salty"/>
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                     android:id="@+id/pbSalty"
@@ -65,7 +61,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SAVORY"/>
+                    android:text="@string/savory"/>
 
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
@@ -90,7 +86,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SOUR"/>
+                    android:text="@string/sour"/>
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                     android:id="@+id/pbSour"
@@ -113,7 +109,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BITTER"/>
+                    android:text="@string/bitter"/>
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                     android:id="@+id/pbBitter"
@@ -136,7 +132,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SWEET"/>
+                    android:text="@string/sweet"/>
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                     android:id="@+id/pbSweet"
@@ -159,7 +155,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SPICY"/>
+                    android:text="@string/spicy"/>
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                     android:id="@+id/pbSpicy"

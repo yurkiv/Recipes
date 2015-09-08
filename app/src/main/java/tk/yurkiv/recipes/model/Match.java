@@ -5,7 +5,8 @@ import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import tk.yurkiv.recipes.util.Utils;
 
 public class Match {
 
@@ -23,8 +24,6 @@ public class Match {
     private Integer rating;
 
     private String likes;
-
-    private Random random=new Random();
 
     public String getSourceDisplayName() {
         return sourceDisplayName;
@@ -68,7 +67,7 @@ public class Match {
     }
 
     public void setLikes(){
-        this.likes=String.valueOf(getRating()*100 + random.nextInt(99));
+        this.likes=String.valueOf(Utils.getLikes(getRating()));
     }
 
     public String getLikes(){

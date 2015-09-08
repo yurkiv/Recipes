@@ -21,7 +21,7 @@ import tk.yurkiv.recipes.util.Utils;
 
 public class CategoryActivity extends BaseActivity {
 
-    private MaterialViewPager mViewPager;
+    private MaterialViewPager viewPager;
     private Toolbar toolbar;
 
     int activityId;
@@ -31,7 +31,7 @@ public class CategoryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_category, frameLayout);
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 
         Intent intent = getIntent();
         activityId=intent.getIntExtra(DRAWER_ITEM_ID_KEY, 1);
@@ -39,21 +39,21 @@ public class CategoryActivity extends BaseActivity {
         switch (activityId){
             case 1:
                 categories=Utils.getCategoryRes(CategoryActivity.this, "course.json");
-                setTitle("Course");
+                setTitle(getResources().getString(R.string.course));
                 break;
             case 2:
                 categories=Utils.getCategoryRes(CategoryActivity.this, "cuisine.json");
-                setTitle("World Cuisine");
+                setTitle(getResources().getString(R.string.world_cuisine));
                 break;
             case 3:
                 categories=Utils.getCategoryRes(CategoryActivity.this, "holiday.json");
-                setTitle("Holiday");
+                setTitle(getResources().getString(R.string.holiday));
                 break;
         }
 
         navigationView.getMenu().getItem(activityId).setChecked(true);
 
-        toolbar = mViewPager.getToolbar();
+        toolbar = viewPager.getToolbar();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             final ActionBar actionBar = getSupportActionBar();
@@ -63,7 +63,7 @@ public class CategoryActivity extends BaseActivity {
             }
         }
 
-        mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+        viewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 switch (activityId){
@@ -88,7 +88,7 @@ public class CategoryActivity extends BaseActivity {
             }
         });
 
-        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
+        viewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 Drawable drawable = getResources().getDrawable(categories.get(page).getImageResourceId());
@@ -97,8 +97,8 @@ public class CategoryActivity extends BaseActivity {
             }
         });
 
-        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
-        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+        viewPager.getViewPager().setOffscreenPageLimit(viewPager.getViewPager().getAdapter().getCount());
+        viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
 
     }
 }

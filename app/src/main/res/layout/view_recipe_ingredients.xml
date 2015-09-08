@@ -13,15 +13,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredients"
+            android:text="@string/ingredients"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:id="@+id/textView"
             android:layout_margin="16dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider" />
+        <include layout="@layout/divider"/>
 
         <ListView
             android:layout_width="match_parent"
@@ -30,23 +27,19 @@
             android:id="@+id/lvIngredients"
             android:layout_marginBottom="8dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider" />
+        <include layout="@layout/divider"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/borderlessButtonStyle"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:text="Clear"
+                android:text="@string/clear"
                 android:id="@+id/btnClearIngredients"
                 android:textColor="@color/accent" />
 
@@ -55,27 +48,13 @@
                 android:layout_height="wrap_content"
                 style="?android:attr/borderlessButtonStyle"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:text="Add to shopping list"
+                android:text="@string/add_to_shopping_list"
                 android:id="@+id/btnAddIngredients"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/accent" />
 
         </LinearLayout>
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text New Text "-->
-            <!--android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
-            <!--android:id="@+id/tvIngredients"-->
-            <!--android:layout_margin="16dp" />-->
-
-
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/rvIngredients"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="8dp" />-->
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

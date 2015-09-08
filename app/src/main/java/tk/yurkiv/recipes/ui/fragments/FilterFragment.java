@@ -110,7 +110,6 @@ public class FilterFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title("Filter")
                 .customView(R.layout.dialog_filter, true)
                 .callback(buttonCallback)
                 .autoDismiss(false)
@@ -120,8 +119,8 @@ public class FilterFragment extends DialogFragment {
 
         ButterKnife.inject(this, dialog);
 
-        tvTotalTime.setText("Total Time: <12 hrs");
-        tvEnergy.setText("Calories: <1000");
+        tvTotalTime.setText(getString(R.string.total_time) + "12 hrs");
+        tvEnergy.setText(getString(R.string.calories)+"1000");
 
         nsCourse.attachDataSource(getCategoryNameList(courseList, "course.json"));
         nsCuisine.attachDataSource(getCategoryNameList(cuisineList, "cuisine.json"));
@@ -132,7 +131,7 @@ public class FilterFragment extends DialogFragment {
         dsbTotalTime.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar discreteSeekBar, int i, boolean b) {
-                tvTotalTime.setText("Total Time: <" + i + " hrs");
+                tvTotalTime.setText(getString(R.string.total_time) + i + getString(R.string.hrs));
             }
 
             @Override
@@ -156,7 +155,7 @@ public class FilterFragment extends DialogFragment {
         dsbEnergy.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar discreteSeekBar, int i, boolean b) {
-                tvEnergy.setText("Calories: <" + i*100);
+                tvEnergy.setText(getString(R.string.calories) + i*100);
             }
 
             @Override
@@ -175,7 +174,7 @@ public class FilterFragment extends DialogFragment {
 
     private List<String> getCategoryNameList(List<Category> categories, String name){
         List<String> dataset = new LinkedList<>();
-        dataset.add("All");
+        dataset.add(getString(R.string.all));
         for (Category category : categories){
             switch (name){
                 case "diet.json":

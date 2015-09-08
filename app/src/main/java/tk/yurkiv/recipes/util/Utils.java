@@ -24,7 +24,7 @@ import tk.yurkiv.recipes.model.Category;
  */
 public class Utils {
 
-    private static Random random=new Random();
+    private static final Random RANDOM=new Random();
 
     public static String fixImageUrl(String url){
 //        http://lh3.googleusercontent.com/CSmOH-M5ZZfOR8kzEu_1qyMs-3fUWSfkuE3MeqUs5I5UbByxCo_gamoqo2YXvCJQb3bAD5FyOTevv52tk1h2=s90
@@ -35,7 +35,7 @@ public class Utils {
     }
 
     public static int getLikes(int likes){
-        return likes*100 + random.nextInt(99);
+        return likes*100 + RANDOM.nextInt(99);
     }
 
     public static  GridLayoutManager getGridLayoutManager(Context context) {

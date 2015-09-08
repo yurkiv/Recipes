@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Intro"
+                android:text="@string/intro"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:id="@+id/textView"
                 android:layout_weight="1" />
@@ -48,11 +48,7 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/divider_description_child"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />
+        <include layout="@layout/divider"/>
 
         <LinearLayout
             style="@style/Widget.CardContent"

@@ -134,9 +134,10 @@ public class RecipeListFragment extends Fragment {
                         Log.d(TAG, "Failed call: " + error.toString());
                         progressActivity.showError(
                                 getActivity().getResources().getDrawable(R.drawable.ic_connection_error),
-                                "No Connection",
-                                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
-                                "Try Again", new View.OnClickListener() {
+                                getString(R.string.no_connection),
+                                getString(R.string.no_connection_text),
+                                getString(R.string.try_again),
+                                new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
                                         progressActivity.showLoading();
