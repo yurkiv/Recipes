@@ -61,7 +61,7 @@
         app:layout_anchorGravity="bottom|right|end"
         android:src="@drawable/ic_favorite_outline"
         android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"/>
+        android:clickable="true" />
 
     <ProgressBar
         android:id="@+id/progressBar"

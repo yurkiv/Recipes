@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.github.leonardoxh.fakesearchview.FakeSearchView;
+import com.vlonjatg.progressactivity.ProgressActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment implements FilterFragment.FilterCallb
     public static final String MAX_TOTAL_TIME = "max_total_time";
     public static final String MAX_ENERGY = "max_energy";
 
+    @InjectView(R.id.progressActivity) protected ProgressActivity progressActivity;
     @InjectView(R.id.rvRecipes) protected RecyclerView rvRecipes;
 
     private RecyclerView.Adapter recipesAdapter;
@@ -67,13 +69,9 @@ public class HomeFragment extends Fragment implements FilterFragment.FilterCallb
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        Log.d(TAG, toString());
-
-        yummlyService= YummlyApi.getService();
+        yummlyService=YummlyApi.getService();
         matches=new ArrayList<>();
-        getMatches(0);
-        recipesAdapter=new RecyclerViewMaterialAdapter(new RecipesAdapter(getActivity(), matches));
+        Log.d(TAG, toString());
     }
 
     @Override
@@ -81,10 +79,12 @@ public class HomeFragment extends Fragment implements FilterFragment.FilterCallb
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, rootView);
+
+        progressActivity.showLoading();
+        getMatches(0);
+        recipesAdapter=new RecyclerViewMaterialAdapter(new RecipesAdapter(getActivity(), matches));
         rvRecipes.setLayoutManager(Utils.getGridLayoutManager(getActivity()));
-
         rvRecipes.setHasFixedSize(true);
-
         EndlessRecyclerOnScrollListener scrollListener=new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore(int currentPage) {
@@ -95,7 +95,6 @@ public class HomeFragment extends Fragment implements FilterFragment.FilterCallb
 
         rvRecipes.addOnScrollListener(scrollListener);
         rvRecipes.setAdapter(recipesAdapter);
-
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), rvRecipes, scrollListener);
 
 
@@ -156,11 +155,23 @@ public class HomeFragment extends Fragment implements FilterFragment.FilterCallb
                     public void success(YummlyRecipesListResponse yummlyRecipesListResponse, Response response) {
                         matches.addAll(yummlyRecipesListResponse.getMatches());
                         recipesAdapter.notifyDataSetChanged();
+                        progressActivity.showContent();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(TAG, "Failed call: " + error.toString());
+                        progressActivity.showError(
+                                getActivity().getResources().getDrawable(R.drawable.ic_connection_error),
+                                "No Connection",
+                                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
+                                "Try Again", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        progressActivity.showLoading();
+                                        getMatches(0);
+                                    }
+                                });
                     }
                 });
     }

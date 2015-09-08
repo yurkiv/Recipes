@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
+<com.vlonjatg.progressactivity.ProgressActivity
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rvRecipes"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/progressActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="8dp"
-    />
+    android:layout_below="@+id/activityToolbar"
+    app:progressEmptyStateBackgroundColor="#fbc02d"
+    app:progressErrorStateBackgroundColor="@color/primary"
+    app:progressErrorStateImageHeight="48dp"
+    app:progressErrorStateImageWidth="48dp"
+    app:progressErrorStateTitleTextColor="@android:color/white"
+    app:progressErrorStateContentTextColor="@android:color/white"
+    >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        />
+
+</com.vlonjatg.progressactivity.ProgressActivity>

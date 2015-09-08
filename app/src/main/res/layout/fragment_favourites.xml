@@ -1,13 +1,22 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.vlonjatg.progressactivity.ProgressActivity
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/progressActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tk.yurkiv.matches.ui.fragments.FavouritesFragment">
+    android:layout_below="@+id/activityToolbar"
+    app:progressEmptyStateBackgroundColor="@color/accent"
+    app:progressEmptyStateImageHeight="48dp"
+    app:progressEmptyStateImageWidth="48dp"
+    app:progressEmptyStateTitleTextColor="@android:color/white"
+    app:progressEmptyStateContentTextColor="@android:color/white"
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvFavouritesRecipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="8dp" />
+        android:paddingLeft="8dp"
+        />
 
-</FrameLayout>
+</com.vlonjatg.progressactivity.ProgressActivity>

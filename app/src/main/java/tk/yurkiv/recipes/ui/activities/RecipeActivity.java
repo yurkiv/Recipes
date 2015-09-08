@@ -124,6 +124,7 @@ public class RecipeActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        setTitle("");
 
         progressBar.setIndeterminateDrawable(new IndeterminateProgressDrawable(this));
 
@@ -136,6 +137,7 @@ public class RecipeActivity extends AppCompatActivity {
         cvFlavors.setScaleX(0);
         cvDirections.setScaleY(0);
         cvDirections.setScaleX(0);
+
 //        fab.setScaleY(0);
 //        fab.setScaleX(0);
 
@@ -227,7 +229,7 @@ public class RecipeActivity extends AppCompatActivity {
                 Log.d(TAG, "shoppingList: " + shoppingList.toString());
 
                 Snackbar.make(findViewById(R.id.main_content),
-                        shoppingList.size()+" items added to shopping list.",
+                        ingredientsAdapter.getAllChecked().size()+" items added to shopping list.",
                         Snackbar.LENGTH_LONG)
                         .show();
 

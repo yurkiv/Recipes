@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.vlonjatg.progressactivity.ProgressActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class RecipeListFragment extends Fragment {
     private static final String HOLIDAY_KEY = "holiday_key";
     private static final String DIET_KEY = "diet_key";
 
+    @InjectView(R.id.progressActivity) protected ProgressActivity progressActivity;
     @InjectView(R.id.rvRecipes) protected RecyclerView rvRecipes;
 
     private RecyclerView.Adapter recipesAdapter;
@@ -86,8 +88,6 @@ public class RecipeListFragment extends Fragment {
 
         yummlyService= YummlyApi.getService();
         matches=new ArrayList<>();
-        getMatches(0);
-        recipesAdapter=new RecyclerViewMaterialAdapter(new RecipesAdapter(getActivity(), matches));
     }
 
     @Override
@@ -95,6 +95,11 @@ public class RecipeListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, rootView);
+
+        progressActivity.showLoading();
+        getMatches(0);
+        recipesAdapter=new RecyclerViewMaterialAdapter(new RecipesAdapter(getActivity(), matches));
+
         rvRecipes.setLayoutManager(Utils.getGridLayoutManager(getActivity()));
         rvRecipes.setHasFixedSize(true);
 
@@ -121,11 +126,23 @@ public class RecipeListFragment extends Fragment {
                     public void success(YummlyRecipesListResponse yummlyRecipesListResponse, Response response) {
                         matches.addAll(yummlyRecipesListResponse.getMatches());
                         recipesAdapter.notifyDataSetChanged();
+                        progressActivity.showContent();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(TAG, "Failed call: " + error.toString());
+                        progressActivity.showError(
+                                getActivity().getResources().getDrawable(R.drawable.ic_connection_error),
+                                "No Connection",
+                                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
+                                "Try Again", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        progressActivity.showLoading();
+                                        getMatches(0);
+                                    }
+                                });
                     }
                 });
     }
