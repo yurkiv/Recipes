@@ -3,6 +3,10 @@ Android recipes app
 
 Recipes is a simple application that helps you cooking.
 
+https://appetize.io/embed/qzq8t7apc3z0e7ptq44jqtgyhr?device=nexus5&orientation=portrait&scale=100
+
+<iframe src="https://appetize.io/embed/qzq8t7apc3z0e7ptq44jqtgyhr?device=nexus5&scale=100&autoplay=false&orientation=portrait&deviceColor=black&language=en" width="400px" height="795px" frameborder="0" scrolling="no"></iframe>
+
 Features
 -------
 
