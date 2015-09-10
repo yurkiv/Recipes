@@ -110,13 +110,16 @@ public class RecipeActivity extends AppCompatActivity {
         final String recipeId = intent.getStringExtra(RECIPE_ID_KEY);
         final String recipeRating = intent.getStringExtra(RECIPE_RATING_KEY);
 
-        settings = PreferenceManager.getDefaultSharedPreferences(this);
-        favRecipesIds=settings.getStringSet(FAVORITE_RECIPE_KEY, new HashSet<String>());
-        if (favRecipesIds.contains(recipeId)){
-            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
-            isFavorite=true;
-        }
+        initToolbar();
 
+        initViews(recipeId);
+
+        loadRecipe(recipeId, recipeRating);
+
+        setListeners(recipeId);
+    }
+
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -126,6 +129,15 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
         setTitle("");
+    }
+
+    private void initViews(String recipeId) {
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+        favRecipesIds=settings.getStringSet(FAVORITE_RECIPE_KEY, new HashSet<String>());
+        if (favRecipesIds.contains(recipeId)){
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
+            isFavorite=true;
+        }
 
         progressBar.setIndeterminateDrawable(new IndeterminateProgressDrawable(this));
         ivBackdrop.setAlpha(0f);
@@ -137,7 +149,9 @@ public class RecipeActivity extends AppCompatActivity {
         cvFlavors.setScaleX(0);
         cvDirections.setScaleY(0);
         cvDirections.setScaleX(0);
+    }
 
+    private void loadRecipe(String recipeId, final String recipeRating) {
         yummlyService=YummlyApi.getService();
         yummlyService.getRecipe(recipeId, new Callback<YummlyRecipe>() {
             @Override
@@ -187,7 +201,9 @@ public class RecipeActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
 
+    private void setListeners(final String recipeId) {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,7 +243,7 @@ public class RecipeActivity extends AppCompatActivity {
                 Log.d(TAG, "shoppingList: " + shoppingList.toString());
 
                 Snackbar.make(findViewById(R.id.main_content),
-                        ingredientsAdapter.getAllChecked().size()+" items added to shopping list.",
+                        ingredientsAdapter.getAllChecked().size() + " items added to shopping list.",
                         Snackbar.LENGTH_LONG)
                         .show();
 
@@ -276,9 +292,6 @@ public class RecipeActivity extends AppCompatActivity {
             case R.id.action_open_web_link:
                 Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(urlRecipeDirections));
                 startActivity(intent);
-                return true;
-            case R.id.action_about:
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
