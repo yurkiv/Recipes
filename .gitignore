@@ -2,8 +2,10 @@
 /local.properties
 /.idea/workspace.xml
 /.idea
+/app/keys.jks
 /Recipes.iml
 /.idea/libraries
 .DS_Store
 /build
 /captures
+/keyInfos.properties

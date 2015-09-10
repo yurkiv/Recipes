@@ -13,10 +13,33 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    File signFile = project.file('keyInfos.properties')
+    if (signFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signFile))
+        signingConfigs {
+            release {
+                try {
+                    storeFile file(project.file(properties['keystore.filename']))
+                    storePassword properties['keystore.password']
+                    keyAlias properties['keystore.alias']
+                    keyPassword properties['keystore.alias.password']
+                }
+                catch (ex) {
+                    throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+                }
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            if (signFile.exists())
+                signingConfig signingConfigs.release
         }
     }
 }
