@@ -1,6 +1,7 @@
 # Recipes
 
 Recipes is a simple application that helps you cooking.
+
 The demo app is available on [appetize.io](https://appetize.io/embed/qzq8t7apc3z0e7ptq44jqtgyhr?device=nexus5&orientation=portrait&scale=75)
 
 Features
