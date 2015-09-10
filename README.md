@@ -15,6 +15,7 @@ Features
 - Completely free and ad-free
 
 Open Source on Github - https://github.com/yurkiv/Recipes
+
 <a href="">
   <img alt="Get it on Google Play"
        src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
@@ -25,11 +26,21 @@ Open Source on Github - https://github.com/yurkiv/Recipes
 Screenshots
 -------
 
-<img src="https://github.com/blanyal/Remindly/blob/master/screenshots/screenshot1.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.21.09.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.21.26.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.22.53.png" width="400">
 
-<img src="https://github.com/blanyal/Remindly/blob/master/screenshots/screenshot2.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.39.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.55.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.27.02.png" width="400">
 
-<img src="https://github.com/blanyal/Remindly/blob/master/screenshots/screenshot3.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.27.52.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.29.05.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.30.57.png" width="400">
+
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.31.43.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.33.08.png" width="400">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.23.27.png" width="400">
 
 License
 -------
