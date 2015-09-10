@@ -26,9 +26,9 @@ Open Source on Github - https://github.com/yurkiv/Recipes
 Screenshots
 -------
 
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.21.09.png" width="200">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.21.26.png" width="200">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.22.53.png" width="200">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.21.09.png" width="220">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.21.26.png" width="220">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.22.53.png" width="220">
 
 <img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.39.png" width="250">
 <img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.55.png" width="250">
