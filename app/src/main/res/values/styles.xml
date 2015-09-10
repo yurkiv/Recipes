@@ -13,14 +13,9 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/window_background</item>
-
-        <item name="android:windowTranslucentStatus" tools:targetApi="19">true</item>
-
-
-
     </style>
 
-    <style name="ViewPagerTheme" parent="Base.AppTheme">
+    <style name="ViewPagerTheme" parent="AppTheme">
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
