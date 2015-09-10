@@ -30,17 +30,17 @@ Screenshots
 <img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.21.26.png" width="230">
 <img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.22.53.png" width="230">
 
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.39.png" width="250">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.55.png" width="250">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.27.02.png" width="250">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.39.png" width="230">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.26.55.png" width="230">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.27.02.png" width="230">
 
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.27.52.png" width="250">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.29.05.png" width="250">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.30.57.png" width="250">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.27.52.png" width="230">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.29.05.png" width="230">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.30.57.png" width="230">
 
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.31.43.png" width="250">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.33.08.png" width="250">
-<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.23.27.png" width="250">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.31.43.png" width="230">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.33.08.png" width="230">
+<img src="https://raw.githubusercontent.com/yurkiv/Recipes/master/screenshots/2015_09_08_18.23.27.png" width="230">
 
 License
 -------
