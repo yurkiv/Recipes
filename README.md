@@ -1,11 +1,7 @@
 # Recipes
-Android recipes app
 
 Recipes is a simple application that helps you cooking.
-
-https://appetize.io/embed/qzq8t7apc3z0e7ptq44jqtgyhr?device=nexus5&orientation=portrait&scale=100
-
-<iframe src="https://appetize.io/embed/qzq8t7apc3z0e7ptq44jqtgyhr?device=nexus5&scale=100&autoplay=false&orientation=portrait&deviceColor=black&language=en" width="400px" height="795px" frameborder="0" scrolling="no"></iframe>
+The demo app is available on [appetize.io](https://appetize.io/embed/qzq8t7apc3z0e7ptq44jqtgyhr?device=nexus5&orientation=portrait&scale=75)
 
 Features
 -------
@@ -24,8 +20,6 @@ Open Source on Github - https://github.com/yurkiv/Recipes
   <img alt="Get it on Google Play"
        src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
 </a>
-
-
 
 Screenshots
 -------
@@ -49,7 +43,7 @@ Screenshots
 License
 -------
 
-    Copyright 2015 Blanyal D'Souza
+    Copyright 2015 Misha Yurkiv
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
